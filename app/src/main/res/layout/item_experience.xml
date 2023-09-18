@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp"
+    android:layout_margin="8dp"
+    android:background="@drawable/bg_item_card"
+    android:backgroundTint="@color/beige">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ic_edu"
+                android:layout_marginEnd="8dp"
+                app:tint="@color/gray"/>
+
+            <TextView
+                android:id="@+id/positionTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Должность: "
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/employerTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Работодатель: "
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/gotham"
+            android:textColor="@color/gray"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/durationTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Продолжительность: "
+            android:fontFamily="@font/gotham"
+            android:textColor="@color/gray"
+            android:textSize="12sp"/>
+
+    </LinearLayout>
+
+    <!-- Добавьте кнопку для удаления образования -->
+    <ImageView
+        android:id="@+id/removeExperienceBtn"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:padding="4dp"
+        android:src="@drawable/ic_remove"
+        app:tint="#4F4F4F"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

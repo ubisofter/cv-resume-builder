@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ToolbarTextStyle">
+        <item name="android:fontFamily">@font/gotham</item>
+        <item name="android:textSize">24sp</item> <!-- Размер текста -->
+        <item name="android:textColor">@color/beige</item> <!-- Цвет текста -->
+    </style>
+
+    <style name="NavbarTextStyle">
+        <item name="android:fontFamily">@font/gotham</item>
+        <item name="android:textSize">12sp</item> <!-- Размер текста -->
+        <item name="android:textColor">@color/beige</item> <!-- Цвет текста -->
+    </style>
+
+</resources>

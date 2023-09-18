@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_item_card"
+        android:backgroundTint="@color/light_gray"
+        android:layout_margin="12dp"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/positionTF"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:hint="Должность"
+        android:inputType="text"
+        android:textColorHint="@color/beige"
+        app:boxStrokeColor="@color/beige"
+        app:boxStrokeWidth="2dp"
+        app:boxStrokeWidthFocused="3dp"
+        app:expandedHintEnabled="false"
+        app:hintTextAppearance="@style/NavbarTextStyle">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/positionET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/beige" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/employerTF"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:hint="Работодатель"
+        android:inputType="text"
+        android:textColorHint="@color/beige"
+        app:boxStrokeColor="@color/beige"
+        app:boxStrokeWidth="2dp"
+        app:boxStrokeWidthFocused="3dp"
+        app:expandedHintEnabled="false"
+        app:hintTextAppearance="@style/NavbarTextStyle">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/employerET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/beige" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/experienceCityTF"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:hint="Город"
+        android:inputType="text"
+        android:textColorHint="@color/beige"
+        app:boxStrokeColor="@color/beige"
+        app:boxStrokeWidth="2dp"
+        app:boxStrokeWidthFocused="3dp"
+        app:expandedHintEnabled="false"
+        app:hintTextAppearance="@style/NavbarTextStyle">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/experienceCityET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/beige" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:id="@+id/workdatesETs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/workDateBeginTF"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_weight="1"
+            android:hint="Дата начала"
+            android:inputType="date"
+            android:textColorHint="@color/beige"
+            app:boxStrokeColor="@color/beige"
+            app:boxStrokeWidth="2dp"
+            app:boxStrokeWidthFocused="3dp"
+            app:expandedHintEnabled="false"
+            app:hintTextAppearance="@style/NavbarTextStyle">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/workDateBeginET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/beige" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/workDateEndTF"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_weight="1"
+            android:hint="Дата завершения"
+            android:inputType="date"
+            android:textColorHint="@color/beige"
+            app:boxStrokeColor="@color/beige"
+            app:boxStrokeWidth="2dp"
+            app:boxStrokeWidthFocused="3dp"
+            app:expandedHintEnabled="false"
+            app:hintTextAppearance="@style/NavbarTextStyle">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/workDateEndET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/beige" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/workDescTF"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:hint="Примечания"
+        android:inputType="text"
+        android:textColorHint="@color/beige"
+        app:boxStrokeColor="@color/beige"
+        app:boxStrokeWidth="2dp"
+        app:boxStrokeWidthFocused="3dp"
+        app:expandedHintEnabled="false"
+        app:hintTextAppearance="@style/NavbarTextStyle">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/workDescET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/beige"
+            android:lines="3"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/saveExperienceBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginBottom="16dp"
+        android:layout_marginHorizontal="16dp"
+        android:background="@drawable/bg_item_card"
+        android:fontFamily="@font/gotham"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="12dp"
+        android:text="Добавить"
+        android:textColor="@color/beige"
+        android:layout_gravity="center_horizontal" />
+
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:padding="12dp"
+    android:layout_margin="8dp"
+    android:background="@drawable/bg_item_card"
+    android:backgroundTint="@color/light_gray">
+
+    <ImageView
+        android:id="@+id/sectionIcon"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_margin="8dp"
+        android:src="@drawable/ic_add_photo"
+        app:tint="@color/beige"/>
+
+    <TextView
+        android:id="@+id/sectionTitle"
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:text="Персональные данные"
+        android:layout_gravity="center"
+        android:gravity="center|start"
+        android:layout_margin="8dp"
+        android:textColor="@color/beige"/>
+
+</LinearLayout>

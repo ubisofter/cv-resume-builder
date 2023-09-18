@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <!-- Фото -->
+                <ImageView
+                    android:id="@+id/photoIV"
+                    android:layout_width="110dp"
+                    android:layout_height="140dp"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_add_photo"
+                    app:tint="@color/beige"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <!-- Имя -->
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/nameTF"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            app:expandedHintEnabled="false"
+                            android:hint="Имя"
+                            android:inputType="textPersonName"
+                            android:padding="4dp"
+                            app:hintTextAppearance="@style/NavbarTextStyle"
+                            android:textColorHint="@color/beige"
+                            app:boxStrokeColor="@color/beige"
+                            app:boxStrokeWidth="2dp"
+                            app:boxStrokeWidthFocused="3dp">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/nameET"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/beige"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- Фамилия -->
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/surnameTF"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            app:expandedHintEnabled="false"
+                            android:hint="Фамилия"
+                            android:inputType="textPersonName"
+                            android:padding="4dp"
+                            app:hintTextAppearance="@style/NavbarTextStyle"
+                            android:textColorHint="@color/beige"
+                            app:boxStrokeColor="@color/beige"
+                            app:boxStrokeWidth="2dp"
+                            app:boxStrokeWidthFocused="3dp">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/surnameET"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/beige"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                    <!-- Заголовок Резюме -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/resumeTitleTF"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:expandedHintEnabled="false"
+                        android:hint="Заголовок Резюме"
+                        android:inputType="text"
+                        android:padding="4dp"
+                        app:hintTextAppearance="@style/NavbarTextStyle"
+                        android:textColorHint="@color/beige"
+                        app:boxStrokeColor="@color/beige"
+                        app:boxStrokeWidth="2dp"
+                        app:boxStrokeWidthFocused="3dp">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/resumeTitleET"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/beige"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Адрес эл. почты -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/emailTF"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:expandedHintEnabled="false"
+                android:hint="Адрес эл. почты"
+                android:inputType="textEmailAddress"
+                android:padding="4dp"
+                app:hintTextAppearance="@style/NavbarTextStyle"
+                android:textColorHint="@color/beige"
+                app:boxStrokeColor="@color/beige"
+                app:boxStrokeWidth="2dp"
+                app:boxStrokeWidthFocused="3dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/emailET"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/beige"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Город -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/cityTF"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:expandedHintEnabled="false"
+                android:hint="Город"
+                android:inputType="textPostalAddress"
+                android:padding="4dp"
+                app:hintTextAppearance="@style/NavbarTextStyle"
+                android:textColorHint="@color/beige"
+                app:boxStrokeColor="@color/beige"
+                app:boxStrokeWidth="2dp"
+                app:boxStrokeWidthFocused="3dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/cityET"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/beige"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Divider -->
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/beige"
+                android:layout_margin="12dp"
+                app:layout_constraintTop_toBottomOf="@+id/cityET"
+                tools:layout_editor_absoluteX="16dp" />
+
+            <!-- Адрес -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addressTF"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:expandedHintEnabled="false"
+                android:hint="Адрес проживания"
+                android:inputType="text"
+                android:padding="4dp"
+                app:hintTextAppearance="@style/NavbarTextStyle"
+                android:textColorHint="@color/beige"
+                app:boxStrokeColor="@color/beige"
+                app:boxStrokeWidth="2dp"
+                app:boxStrokeWidthFocused="3dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/addressET"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/beige"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Место рождения -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/placeOfBirthTF"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:expandedHintEnabled="false"
+                android:hint="Место рождения"
+                android:inputType="textPostalAddress"
+                android:padding="4dp"
+                app:hintTextAppearance="@style/NavbarTextStyle"
+                android:textColorHint="@color/beige"
+                app:boxStrokeColor="@color/beige"
+                app:boxStrokeWidth="2dp"
+                app:boxStrokeWidthFocused="3dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/placeOfBirthET"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/beige"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Номер телефона -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/phoneNumberTF"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:expandedHintEnabled="false"
+                android:hint="Номер телефона"
+                android:inputType="phone"
+                android:padding="4dp"
+                app:hintTextAppearance="@style/NavbarTextStyle"
+                android:textColorHint="@color/beige"
+                app:boxStrokeColor="@color/beige"
+                app:boxStrokeWidth="2dp"
+                app:boxStrokeWidthFocused="3dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/phoneNumberET"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/beige"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Дата рождения -->
+            <!-- Добавьте элемент для выбора даты рождения здесь -->
+
+            <!-- Водительское удостоверение -->
+            <!-- Добавьте элемент для выбора вариантов здесь -->
+
+            <!-- Пол -->
+            <!-- Добавьте чекбоксы для выбора пола здесь -->
+
+            <!-- Гражданство -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/citizenshipTF"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:expandedHintEnabled="false"
+                android:hint="Гражданство"
+                android:inputType="phone"
+                android:padding="4dp"
+                app:hintTextAppearance="@style/NavbarTextStyle"
+                android:textColorHint="@color/beige"
+                app:boxStrokeColor="@color/beige"
+                app:boxStrokeWidth="2dp"
+                app:boxStrokeWidthFocused="3dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/citizenshipET"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/beige"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Семейное положение -->
+            <!-- Добавьте элемент для выбора вариантов здесь -->
+
+            <!-- Веб-сайт -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/websiteTF"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:expandedHintEnabled="false"
+                android:hint="Веб-сайт"
+                android:inputType="textUri"
+                android:padding="4dp"
+                app:hintTextAppearance="@style/NavbarTextStyle"
+                android:textColorHint="@color/beige"
+                app:boxStrokeColor="@color/beige"
+                app:boxStrokeWidth="2dp"
+                app:boxStrokeWidthFocused="3dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/websiteET"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/beige"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- LinkedIn -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/linkedinTF"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:expandedHintEnabled="false"
+                android:hint="LinkedIn"
+                android:inputType="textUri"
+                android:padding="4dp"
+                app:hintTextAppearance="@style/NavbarTextStyle"
+                android:textColorHint="@color/beige"
+                app:boxStrokeColor="@color/beige"
+                app:boxStrokeWidth="2dp"
+                app:boxStrokeWidthFocused="3dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/linkedinET"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/beige"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Индивидуальное поле -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/customFieldTF"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:expandedHintEnabled="false"
+                android:hint="Индивидуальное поле"
+                android:inputType="text"
+                android:padding="4dp"
+                app:hintTextAppearance="@style/NavbarTextStyle"
+                android:textColorHint="@color/beige"
+                app:boxStrokeColor="@color/beige"
+                app:boxStrokeWidth="2dp"
+                app:boxStrokeWidthFocused="3dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/customFieldET"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lines="3"
+                    android:textColor="@color/beige"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
