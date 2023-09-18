@@ -15,12 +15,12 @@
         android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/skillTF"
+            android:id="@+id/langTF"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:expandedHintEnabled="false"
-            android:hint="Навык"
+            android:hint="Язык"
             app:hintTextAppearance="@style/NavbarTextStyle"
             android:inputType="text"
             android:layout_margin="16dp"
@@ -29,54 +29,46 @@
             app:boxStrokeWidth="2dp"
             app:boxStrokeWidthFocused="3dp">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/skillET"
+                android:id="@+id/langET"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/beige"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/skillLvlTF"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
+        <TextView
             android:layout_height="wrap_content"
-            app:expandedHintEnabled="false"
-            android:hint="Навык"
-            app:hintTextAppearance="@style/NavbarTextStyle"
-            android:inputType="text"
-            android:layout_margin="16dp"
-            android:textColorHint="@color/beige"
-            app:boxStrokeColor="@color/beige"
-            app:boxStrokeWidth="2dp"
-            app:boxStrokeWidthFocused="3dp">
+            android:layout_width="wrap_content"
+            android:textColor="@color/beige"
+            android:textSize="12sp"
+            android:layout_marginStart="32dp"
+            android:text="Уровень"/>
 
-            <com.shuhart.stepview.StepView
-                android:id="@+id/skillLvl"
-                android:layout_width="match_parent"
-                android:layout_height="68dp"
-                android:layout_marginHorizontal="16dp"
-                app:sv_selectedCircleColor="@color/beige"
-                app:sv_selectedTextColor="@color/beige"
-                app:sv_stepLineWidth="2dp"
-                app:sv_stepPadding="12dp"
-                app:sv_stepsNumber="5"
-                app:sv_nextTextColor="@color/gray"
-                app:sv_nextStepLineColor="@color/gray"
-                app:sv_doneCircleColor="@color/beige"
-                app:sv_doneStepLineColor="@color/beige"
-                app:sv_doneCircleRadius="12dp"
-                app:sv_selectedCircleRadius="12dp"
-                app:sv_selectedStepNumberColor="@color/black"
-                app:sv_stepViewStyle="@style/StepView"
-                app:sv_doneStepMarkColor="@color/beige"
-                app:sv_stepNumberTextSize="14sp"
-                app:sv_animationType="Line"
-                app:sv_typeface="@font/gotham"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
+        <com.shuhart.stepview.StepView
+            android:id="@+id/langLvl"
+            android:layout_width="match_parent"
+            android:layout_height="68dp"
+            android:layout_marginHorizontal="16dp"
+            app:sv_selectedCircleColor="@color/beige"
+            app:sv_selectedTextColor="@color/beige"
+            app:sv_stepLineWidth="2dp"
+            app:sv_stepPadding="12dp"
+            app:sv_stepsNumber="5"
+            app:sv_nextTextColor="@color/gray"
+            app:sv_nextStepLineColor="@color/gray"
+            app:sv_doneCircleColor="@color/beige"
+            app:sv_doneStepLineColor="@color/beige"
+            app:sv_doneCircleRadius="12dp"
+            app:sv_selectedCircleRadius="12dp"
+            app:sv_selectedStepNumberColor="@color/black"
+            app:sv_stepViewStyle="@style/StepView"
+            app:sv_doneStepMarkColor="@color/beige"
+            app:sv_stepNumberTextSize="14sp"
+            app:sv_textSize="12sp"
+            app:sv_animationType="Line"
+            app:sv_typeface="@font/gotham"/>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/skillDescTF"
+            android:id="@+id/langDescTF"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -90,7 +82,7 @@
             app:boxStrokeWidth="2dp"
             app:boxStrokeWidthFocused="3dp">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/skillDescET"
+                android:id="@+id/langDescET"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lines="3"
@@ -98,7 +90,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/saveSkillBtn"
+            android:id="@+id/saveLangBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="48dp"

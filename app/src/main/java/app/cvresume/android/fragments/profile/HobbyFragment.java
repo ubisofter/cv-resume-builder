@@ -25,41 +25,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.cvresume.android.R;
-import app.cvresume.android.fragments.profile.lang.AddLangFragment;
-import app.cvresume.android.fragments.profile.lang.LangAdapter;
-import app.cvresume.android.models.Lang;
+import app.cvresume.android.fragments.profile.hobby.AddHobbyFragment;
+import app.cvresume.android.fragments.profile.hobby.HobbyAdapter;
+import app.cvresume.android.models.Hobby;
 
-public class LangFragment extends Fragment {
+public class HobbyFragment extends Fragment {
 
-    private List<Lang> langList = new ArrayList<>(); // Список образований
-    private RecyclerView langRV;
-    private LangAdapter langAdapter;
-    private AppCompatButton addLangBtn;
+    private List<Hobby> hobbyList = new ArrayList<>(); // Список образований
+    private RecyclerView hobbyRV;
+    private HobbyAdapter hobbyAdapter;
+    private AppCompatButton addHobbyBtn;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-    String langListJson;
+    String hobbyListJson;
     private AppCompatActivity activity;
     private BottomNavigationView bnv;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_lang, container, false);
+        View view = inflater.inflate(R.layout.fragment_hobby, container, false);
 
         // Находим элементы для ввода
-        addLangBtn = view.findViewById(R.id.addLangBtn);
+        addHobbyBtn = view.findViewById(R.id.addHobbyBtn);
 
-        langRV = view.findViewById(R.id.langRV);
+        hobbyRV = view.findViewById(R.id.hobbyRV);
         setupRecyclerView();
 
-        addLangBtn.setOnClickListener(new View.OnClickListener() {
+        addHobbyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openAddLangFragment();
+                openAddHobbyFragment();
             }
         });
 
-        loadLangData();
+        loadHobbyData();
 
         activity = (AppCompatActivity) requireActivity();
         bnv = activity.findViewById(R.id.bottom_navigation);
@@ -67,94 +67,94 @@ public class LangFragment extends Fragment {
         activity.getSupportActionBar().setDisplayShowHomeEnabled(true);
         bnv.setVisibility(View.GONE);
 
-        activity.getSupportActionBar().setTitle("Языки");
+        activity.getSupportActionBar().setTitle("Хобби");
 
         return view;
     }
 
     private void setupRecyclerView() {
-        langRV.setLayoutManager(new LinearLayoutManager(getContext()));
-        langAdapter = new LangAdapter(langList);
-        langRV.setAdapter(langAdapter);
+        hobbyRV.setLayoutManager(new LinearLayoutManager(getContext()));
+        hobbyAdapter = new HobbyAdapter(hobbyList);
+        hobbyRV.setAdapter(hobbyAdapter);
     }
 
-    private void openAddLangFragment() {
+    private void openAddHobbyFragment() {
         // Создаем и отображаем фрагмент для ввода образования
-        AddLangFragment addLangFragment = new AddLangFragment();
-        addLangFragment.setLangAdapter(langAdapter); // Передаем адаптер в AddEducationFragment
+        AddHobbyFragment addHobbyFragment = new AddHobbyFragment();
+        addHobbyFragment.setHobbyAdapter(hobbyAdapter); // Передаем адаптер в AddEducationFragment
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, addLangFragment);
+        transaction.replace(R.id.fragment_container, addHobbyFragment);
         transaction.addToBackStack(null); // Добавляем фрагмент в стек, чтобы можно было вернуться к EducationFragment
         transaction.commit();
     }
 
     // Метод для удаления образования по индексу
-    private void removeLang(int position) {
-        if (position >= 0 && position < langList.size()) {
-            langList.remove(position);
-            langAdapter.notifyDataSetChanged(); // Обновить адаптер
-            saveLangData(); // Сохраняем образования после удаления
+    private void removeHobby(int position) {
+        if (position >= 0 && position < hobbyList.size()) {
+            hobbyList.remove(position);
+            hobbyAdapter.notifyDataSetChanged(); // Обновить адаптер
+            saveHobbyData(); // Сохраняем образования после удаления
         }
     }
 
     // Метод для сохранения данных в SharedPreferences
-    private void saveLangData() {
+    private void saveHobbyData() {
         sharedPreferences = requireActivity().getSharedPreferences("resume_data", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
         // Преобразуем список образований в строку JSON
         Gson gson = new Gson();
-        langListJson = gson.toJson(langList);
+        hobbyListJson = gson.toJson(hobbyList);
 
         // Сохраняем строку JSON в SharedPreferences
-        editor.putString("lang_list", langListJson);
+        editor.putString("hobby_list", hobbyListJson);
         editor.apply();
     }
 
     // Метод для загрузки сохраненных образований из SharedPreferences
-    private void loadLangData() {
+    private void loadHobbyData() {
         sharedPreferences = requireActivity().getSharedPreferences("resume_data", Context.MODE_PRIVATE);
 
         // Получаем строку JSON с образованиями
-        langListJson = sharedPreferences.getString("lang_list", "");
+        hobbyListJson = sharedPreferences.getString("hobby_list", "");
 
-        if (!langListJson.isEmpty()) {
+        if (!hobbyListJson.isEmpty()) {
             // Если строка JSON не пустая, преобразуем её обратно в список Education
             Gson gson = new Gson();
-            Type langListType = new TypeToken<List<Lang>>() {}.getType();
-            List<Lang> loadedLangList = gson.fromJson(langListJson, langListType);
+            Type hobbyListType = new TypeToken<List<Hobby>>() {}.getType();
+            List<Hobby> loadedHobbyList = gson.fromJson(hobbyListJson, hobbyListType);
 
             // Очищаем существующий список и добавляем загруженные образования
-            langList.clear();
-            langList.addAll(loadedLangList);
+            hobbyList.clear();
+            hobbyList.addAll(loadedHobbyList);
 
             // Обновляем адаптер после загрузки данных
-            langAdapter.notifyDataSetChanged();
+            hobbyAdapter.notifyDataSetChanged();
         }
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        saveLangData();
+        saveHobbyData();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        saveLangData();
+        saveHobbyData();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        saveLangData();
+        saveHobbyData();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        loadLangData();
-        activity.getSupportActionBar().setTitle("Языки");
+        loadHobbyData();
+        activity.getSupportActionBar().setTitle("Хобби");
     }
 }

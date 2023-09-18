@@ -20,6 +20,7 @@ import app.cvresume.android.R;
 import app.cvresume.android.adapters.ResumeAdapter;
 import app.cvresume.android.fragments.profile.EducationFragment;
 import app.cvresume.android.fragments.profile.ExperienceFragment;
+import app.cvresume.android.fragments.profile.HobbyFragment;
 import app.cvresume.android.fragments.profile.LangFragment;
 import app.cvresume.android.fragments.profile.PersonalFragment;
 import app.cvresume.android.fragments.profile.SkillFragment;
@@ -100,6 +101,13 @@ public class ProfileFragment extends Fragment {
                         break;
                     case 4:
                         fragment = new LangFragment();
+                        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                        activity.getSupportActionBar().setDisplayShowHomeEnabled(true);
+                        bnv.setVisibility(View.GONE);
+                        activity.getSupportActionBar().setTitle(resumeSections[position]);
+                        break;
+                    case 5:
+                        fragment = new HobbyFragment();
                         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                         activity.getSupportActionBar().setDisplayShowHomeEnabled(true);
                         bnv.setVisibility(View.GONE);
