@@ -15,118 +15,147 @@ import androidx.fragment.app.Fragment;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.shuhart.stepview.StepView;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import app.cvresume.android.R;
-import app.cvresume.android.fragments.profile.experience.ExperienceAdapter;
-import app.cvresume.android.models.Experience;
+import app.cvresume.android.fragments.profile.skill.SkillAdapter;
+import app.cvresume.android.models.Skill;
 
 public class AddSkillFragment extends Fragment {
-    private EditText positionET, employerET, experienceCityET, workDateBeginET, workDateEndET, workDescET;
-    private Button saveExperienceBtn;
-    private List<Experience> experienceList = new ArrayList<>(); // Список образований
-    private ExperienceAdapter experienceAdapter;
+    private EditText skillET, skillDescET;
+    private StepView skillLvl;
+    private Button saveSkillBtn;
+    private List<Skill> skillList = new ArrayList<>();
+    private SkillAdapter skillAdapter;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-    String experienceListJson;
+    String skillListJson;
+    int sLvl;
 
     // Метод для установки адаптера
-    public void setExperienceAdapter(ExperienceAdapter adapter) {
-        experienceAdapter = adapter;
+    public void setSkillAdapter(SkillAdapter adapter) {
+        skillAdapter = adapter;
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_add_experience, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_skill, container, false);
 
         // Находим элементы для ввода
-        positionET = view.findViewById(R.id.positionET);
-        employerET = view.findViewById(R.id.employerET);
-        experienceCityET = view.findViewById(R.id.experienceCityET);
-        workDateBeginET = view.findViewById(R.id.workDateBeginET);
-        workDateEndET = view.findViewById(R.id.workDateEndET);
-        workDescET = view.findViewById(R.id.workDescET);
-        saveExperienceBtn = view.findViewById(R.id.saveExperienceBtn);
+        skillET = view.findViewById(R.id.skillET);
+        skillLvl = view.findViewById(R.id.skillLvl);
+        skillDescET = view.findViewById(R.id.skillDescET);
+        saveSkillBtn = view.findViewById(R.id.saveSkillBtn);
 
-        saveExperienceBtn.setOnClickListener(new View.OnClickListener() {
+        // Устанавливаем количество шагов (уровней навыка)
+        skillLvl.setStepsNumber(5);
+
+        // Получите массив строк из ресурсов
+        String[] skillLevels = getResources().getStringArray(R.array.skill_level);
+
+        skillLvl.getState().steps(Arrays.asList(skillLevels))
+                .animationType(StepView.ANIMATION_LINE)
+                .commit();
+
+        skillLvl.setOnStepClickListener(step -> {
+            switch (step) {
+                case 0:
+                    skillLvl.go(0,true);
+                    sLvl = 0;
+                    break;
+                case 1:
+                    skillLvl.go(1,true);
+                    sLvl = 1;
+                    break;
+                case 2:
+                    skillLvl.go(2,true);
+                    sLvl = 2;
+                    break;
+                case 3:
+                    skillLvl.go(3,true);
+                    sLvl = 3;
+                    break;
+                case 4:
+                    skillLvl.go(4,true);
+                    sLvl = 4;
+                    break;
+            }
+        });
+
+        saveSkillBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addExperience();
-                returnToExperienceFragment();
+                addSkill();
+                returnToSkillFragment();
             }
         });
 
         return view;
     }
 
-    private void addExperience() {
+    private void addSkill() {
         // Получаем данные с полей ввода
-        String wPosition = positionET.getText().toString();
-        String wEmployer = employerET.getText().toString();
-        String wYears = workDateBeginET.getText().toString() + " - " + workDateEndET.getText().toString();
-        String wCity = experienceCityET.getText().toString();
-        String wDesc = workDescET.getText().toString();
+        String sSkill = skillET.getText().toString();
+        String sDesc = skillDescET.getText().toString();
 
         // Создаем новый объект Education
-        Experience experience = new Experience(wPosition, wEmployer, wCity, wYears, wDesc);
+        Skill skill = new Skill(sSkill, sLvl, sDesc);
 
         // Загружаем текущий список образований из SharedPreferences
-        loadExperienceData();
+        loadSkillData();
 
         // Добавляем новое образование в список
-        experienceList.add(experience);
+        skillList.add(skill);
 
         // Сохраняем обновленный список образований в SharedPreferences
-        saveExperienceData();
+        saveSkillData();
 
         // Очищаем поля ввода
-        positionET.setText("");
-        employerET.setText("");
-        experienceCityET.setText("");
-        workDateBeginET.setText("");
-        workDateEndET.setText("");
-        workDescET.setText("");
+        skillET.setText("");
+        skillDescET.setText("");
 
         // Обновляем адаптер (если он был установлен)
-        if (experienceAdapter != null) {
-            experienceAdapter.notifyDataSetChanged();
+        if (skillAdapter != null) {
+            skillAdapter.notifyDataSetChanged();
         }
     }
 
     // Метод для сохранения данных в SharedPreferences
-    private void saveExperienceData() {
+    private void saveSkillData() {
         sharedPreferences = requireActivity().getSharedPreferences("resume_data", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
         // Преобразуем список образований в строку JSON
         Gson gson = new Gson();
-        experienceListJson = gson.toJson(experienceList);
+        skillListJson = gson.toJson(skillList);
 
         // Сохраняем строку JSON в SharedPreferences
-        editor.putString("experience_list", experienceListJson);
+        editor.putString("skill_list", skillListJson);
         editor.apply();
     }
 
     // Метод для загрузки сохраненных образований из SharedPreferences
-    private void loadExperienceData() {
+    private void loadSkillData() {
         sharedPreferences = requireActivity().getSharedPreferences("resume_data", Context.MODE_PRIVATE);
 
         // Получаем строку JSON с образованиями
-        experienceListJson = sharedPreferences.getString("experience_list", "");
+        skillListJson = sharedPreferences.getString("skill_list", "");
 
-        if (!experienceListJson.isEmpty()) {
+        if (!skillListJson.isEmpty()) {
             // Если строка JSON не пустая, преобразуем её обратно в список Education
             Gson gson = new Gson();
-            Type experienceListType = new TypeToken<List<Experience>>() {}.getType();
-            experienceList = gson.fromJson(experienceListJson, experienceListType);
+            Type skillListType = new TypeToken<List<Skill>>() {}.getType();
+            skillList = gson.fromJson(skillListJson, skillListType);
         }
     }
 
-    private void returnToExperienceFragment() {
+    private void returnToSkillFragment() {
         getParentFragmentManager().popBackStack();
     }
 

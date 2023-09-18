@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="skill_level">
+        <item>Низкий</item> <item>Базовый</item> <item>Средний</item> <item>Хороший</item> <item>Высокий</item>
+    </string-array>
+</resources>

@@ -8,7 +8,7 @@
     android:background="@color/gray">
 
     <ScrollView
-        android:id="@+id/experienceSW"
+        android:id="@+id/skillSW"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="76dp"
@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/experienceRV"
+            android:id="@+id/skillRV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -27,13 +27,13 @@
     </ScrollView>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/addExperienceBtn"
+        android:id="@+id/addSkillBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:paddingVertical="12dp"
         android:paddingHorizontal="24dp"
-        android:text="Добавить место работы"
+        android:text="Добавить навык"
         android:textColor="@color/beige"
         android:fontFamily="@font/gotham"
         android:background="@drawable/bg_item_card"

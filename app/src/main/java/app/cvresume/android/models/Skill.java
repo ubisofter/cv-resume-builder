@@ -1,27 +1,34 @@
 package app.cvresume.android.models;
 
 public class Skill {
-    private String name;
-    private String proficiency;
+    private String skill;
+    private int skillLevel;
+    private String skillDesc;
 
-    public Skill(String name, String proficiency) {
-        this.name = name;
-        this.proficiency = proficiency;
+    public Skill(String skill, int skillLevel, String skillDesc) {
+        this.skill = skill;
+        this.skillLevel = skillLevel;
+        this.skillDesc = skillDesc;
     }
 
-    public String getName() {
-        return name;
+    public String getSkill() {
+        return skill;
+    }
+    public void setSkill(String skill) {
+        this.skill = skill;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public int getSkillLevel() {
+        return skillLevel;
+    }
+    public void setSkillLevel(int skillLevel) {
+        this.skillLevel = skillLevel;
     }
 
-    public String getProficiency() {
-        return proficiency;
+    public String getSkillDesc() {
+        return skillDesc;
     }
-
-    public void setProficiency(String proficiency) {
-        this.proficiency = proficiency;
+    public void setSkillDesc(String skillDesc) {
+        this.skillDesc = skillDesc;
     }
 }

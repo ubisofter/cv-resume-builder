@@ -116,7 +116,8 @@
                             android:id="@+id/resumeTitleET"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/beige"/>
+                            android:textColor="@color/beige"
+                            android:textSize="12sp"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
