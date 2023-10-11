@@ -1,23 +1,28 @@
 package app.cvresume.android.fragments.profile.skill;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
+import java.util.concurrent.Executors;
 import app.cvresume.android.R;
-import app.cvresume.android.models.Skill;
+import app.cvresume.android.data.AppDatabase;
+import app.cvresume.android.data.SkillEntity;
 
 public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.ViewHolder> {
 
-    private List<Skill> skillList;
+    private List<SkillEntity> skillList;
+    private AppDatabase appDatabase;
 
-    public SkillAdapter(List<Skill> skillList) {
+    public SkillAdapter(List<SkillEntity> skillList, AppDatabase appDatabase) {
         this.skillList = skillList;
+        this.appDatabase = appDatabase;
     }
 
     @NonNull
@@ -25,43 +30,41 @@ public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.ViewHolder> 
     public SkillAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_skill, parent, false);
+
         return new SkillAdapter.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull SkillAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        Skill skill = skillList.get(position);
-        holder.skillTV.setText("Навык: " + skill.getSkill());
 
-        switch (skill.getSkillLevel()){
+        SkillEntity skillEntity = skillList.get(position);
+        holder.sSkillTV.setText(skillEntity.skillSkill);
+
+        switch (skillEntity.skillLvl){
             case 0:
-                holder.skillLvl.setText("Уровень: Низкий");
+                holder.sLvlTV.setText("Низкий");
                 break;
             case 1:
-                holder.skillLvl.setText("Уровень: Базовый");
+                holder.sLvlTV.setText("Базовый");
                 break;
             case 2:
-                holder.skillLvl.setText("Уровень: Средний");
+                holder.sLvlTV.setText("Средний");
                 break;
             case 3:
-                holder.skillLvl.setText("Уровень: Хороший");
+                holder.sLvlTV.setText("Хороший");
                 break;
             case 4:
-                holder.skillLvl.setText("Уровень: Высокий");
+                holder.sLvlTV.setText("Высокий");
                 break;
         }
-        //holder.skillLvl.setText("Уровень: " + skill.getSkillLevel());
 
-        holder.skillDesc.setText("Описание: " + skill.getSkillDesc());
+        holder.sDescTV.setText(skillEntity.skillDesc);
 
-        // Установите обработчик для кнопки удаления
-        holder.removeSkillBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Вызовите метод для удаления образования
-                removeEducation(position);
-            }
+        holder.sDeleteBtn.setOnClickListener(v -> {
+            removeItem(position);
         });
+
+        Log.d("SkillAdapter", "Binding item at position " + position);
     }
 
     @Override
@@ -69,24 +72,38 @@ public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.ViewHolder> 
         return skillList.size();
     }
 
-    // Метод для удаления образования по позиции
-    private void removeEducation(int position) {
+    public void updateData(List<SkillEntity> newData) {
+        skillList.clear();
+        skillList.addAll(newData);
+        notifyDataSetChanged();
+    }
+
+    public void removeItem(int position) {
         if (position >= 0 && position < skillList.size()) {
-            skillList.remove(position);
-            notifyDataSetChanged(); // Обновить адаптер
+            final SkillEntity skillEntity = skillList.remove(position);
+            notifyItemRemoved(position);
+            Executors.newSingleThreadExecutor().execute(new Runnable() {
+                @Override
+                public void run() {
+                    appDatabase.skillDao().deleteSkill(skillEntity);
+                }
+            });
         }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView skillTV, skillDesc, skillLvl;
-        public ImageView removeSkillBtn;
+
+        public TextView sSkillTV;
+        public TextView sLvlTV;
+        public TextView sDescTV;
+        public LinearLayout sDeleteBtn;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            skillTV = itemView.findViewById(R.id.skillTV);
-            skillDesc = itemView.findViewById(R.id.skillDescTV);
-            skillLvl = itemView.findViewById(R.id.skillLvlTV);
-            removeSkillBtn = itemView.findViewById(R.id.removeSkillBtn);
+            sSkillTV = itemView.findViewById(R.id.sSkillTV);
+            sLvlTV = itemView.findViewById(R.id.sLvlTV);
+            sDescTV = itemView.findViewById(R.id.sDescTV);
+            sDeleteBtn = itemView.findViewById(R.id.sDeleteBtn);
         }
     }
 }

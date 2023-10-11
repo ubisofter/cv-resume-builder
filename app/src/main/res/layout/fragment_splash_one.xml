@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/splash_ic_title"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Шаблон Резюме"
+            android:textSize="22sp"
+            android:textColor="#000"
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+            android:fontFamily="@font/evolventa"/>
+    </LinearLayout>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation_view"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/anim_resume" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Конструктор эффективных резюме"
+        android:textSize="28sp"
+        android:textColor="#000"
+        android:layout_gravity="center"
+        android:layout_marginTop="28dp"
+        android:layout_marginHorizontal="48dp"
+        android:fontFamily="@font/evolventa"
+        android:gravity="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Создайте резюме в профессиональном конструкторе и скачайте готовый шаблон. Дополнительно, резюме можно отправить по почте себе и работодателю"
+        android:textSize="16sp"
+        android:textColor="#555"
+        android:layout_gravity="center"
+        android:layout_marginTop="28dp"
+        android:layout_marginHorizontal="16dp"
+        android:textAlignment="center"
+        android:fontFamily="@font/evolventa"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="28dp"
+        android:layout_marginHorizontal="26dp">
+
+        <TextView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="#EAFAFD"
+            android:layout_weight="1"
+            android:text="Быстро"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="20dp"/>
+
+        <TextView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="#E4EBFB"
+            android:layout_weight="1"
+            android:text="Просто"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="20dp"/>
+
+        <TextView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="#EADEF9"
+            android:layout_weight="1"
+            android:text="Онлайн"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="20dp"/>
+    </LinearLayout>
+
+    <!-- Кнопка "Далее" -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/splash_one_btn"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:text="Продолжить"
+        android:textColor="@color/white"
+        android:fontFamily="@font/evolventa"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:textAllCaps="false"
+        android:background="@drawable/bg_item_card"
+        android:backgroundTint="#5AB556"
+        android:layout_gravity="center"
+        android:layout_marginTop="68dp"
+        android:layout_marginHorizontal="26dp" />
+</LinearLayout>

@@ -2,10 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray">
+    android:background="@color/white">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -20,330 +19,389 @@
             android:padding="16dp">
 
             <LinearLayout
-                android:id="@+id/linearLayout2"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <!-- Фото -->
+                android:layout_marginStart="4dp">
+                <!-- Иконка приложения и текст -->
                 <ImageView
-                    android:id="@+id/photoIV"
-                    android:layout_width="110dp"
-                    android:layout_height="140dp"
-                    android:padding="12dp"
-                    android:src="@drawable/ic_add_photo"
-                    app:tint="@color/beige"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/splash_ic_title"
+                    android:layout_gravity="center" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Личная информация"
+                    android:textSize="22sp"
+                    android:textColor="#000"
+                    android:layout_gravity="center"
+                    android:layout_margin="8dp"
+                    android:fontFamily="@font/evolventa"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/evolventa"
+                android:text="Город проживания"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+            <EditText
+                    android:id="@+id/cityET"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_text_field"
+                    android:hint="Москва"
+                    android:fontFamily="@font/evolventa"
+                    android:paddingHorizontal="20dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="#E7E7E9"
+                    android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/evolventa"
+                android:text="Дата рождения"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp">
 
-                    <LinearLayout
+                    <EditText
+                        android:id="@+id/dayET"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_height="55dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="4dp"
+                        android:background="@drawable/bg_text_field"
+                        android:hint="1"
+                        android:fontFamily="@font/evolventa"
+                        android:paddingHorizontal="20dp"
+                        android:textColor="@color/black"
+                        android:textColorHint="#E7E7E9"
+                        android:textSize="16sp" />
 
-                        <!-- Имя -->
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/nameTF"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="3"
-                            app:expandedHintEnabled="false"
-                            android:hint="Имя"
-                            android:inputType="textPersonName"
-                            android:padding="4dp"
-                            app:hintTextAppearance="@style/NavbarTextStyle"
-                            android:textColorHint="@color/beige"
-                            app:boxStrokeColor="@color/beige"
-                            app:boxStrokeWidth="2dp"
-                            app:boxStrokeWidthFocused="3dp">
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/nameET"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/beige"/>
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <!-- Фамилия -->
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/surnameTF"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            app:expandedHintEnabled="false"
-                            android:hint="Фамилия"
-                            android:inputType="textPersonName"
-                            android:padding="4dp"
-                            app:hintTextAppearance="@style/NavbarTextStyle"
-                            android:textColorHint="@color/beige"
-                            app:boxStrokeColor="@color/beige"
-                            app:boxStrokeWidth="2dp"
-                            app:boxStrokeWidthFocused="3dp">
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/surnameET"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/beige"/>
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                    </LinearLayout>
-
-                    <!-- Заголовок Резюме -->
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/resumeTitleTF"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    <EditText
+                        android:id="@+id/monthET"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:expandedHintEnabled="false"
-                        android:hint="Заголовок Резюме"
-                        android:inputType="text"
-                        android:padding="4dp"
-                        app:hintTextAppearance="@style/NavbarTextStyle"
-                        android:textColorHint="@color/beige"
-                        app:boxStrokeColor="@color/beige"
-                        app:boxStrokeWidth="2dp"
-                        app:boxStrokeWidthFocused="3dp">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/resumeTitleET"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/beige"
-                            android:textSize="12sp"/>
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_height="55dp"
+                        android:layout_weight="1"
+                        android:layout_marginStart="4dp"
+                        android:background="@drawable/bg_text_field"
+                        android:hint="12"
+                        android:fontFamily="@font/evolventa"
+                        android:paddingHorizontal="20dp"
+                        android:textColor="@color/black"
+                        android:textColorHint="#E7E7E9"
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
+                <EditText
+                    android:id="@+id/yearET"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_text_field"
+                    android:hint="1974"
+                    android:fontFamily="@font/evolventa"
+                    android:paddingHorizontal="20dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="#E7E7E9"
+                    android:textSize="16sp" />
             </LinearLayout>
 
-            <!-- Адрес эл. почты -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/emailTF"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:expandedHintEnabled="false"
-                android:hint="Адрес эл. почты"
-                android:inputType="textEmailAddress"
-                android:padding="4dp"
-                app:hintTextAppearance="@style/NavbarTextStyle"
-                android:textColorHint="@color/beige"
-                app:boxStrokeColor="@color/beige"
-                app:boxStrokeWidth="2dp"
-                app:boxStrokeWidthFocused="3dp">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/emailET"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/beige"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_gravity="start"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/evolventa"
+                android:text="Семейное положение"
+                android:textColor="#000"
+                android:textSize="18sp" />
 
-            <!-- Город -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/cityTF"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <EditText
+                android:id="@+id/famStatusET"
                 android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_text_field"
+                android:hint="Холост"
+                android:fontFamily="@font/evolventa"
+                android:paddingHorizontal="20dp"
+                android:textColor="@color/black"
+                android:textColorHint="#E7E7E9"
+                android:textSize="16sp" />
+
+            <CheckBox
+                android:id="@+id/childrenCB"
+                android:layout_marginTop="16dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:expandedHintEnabled="false"
-                android:hint="Город"
-                android:inputType="textPostalAddress"
-                android:padding="4dp"
-                app:hintTextAppearance="@style/NavbarTextStyle"
-                android:textColorHint="@color/beige"
-                app:boxStrokeColor="@color/beige"
-                app:boxStrokeWidth="2dp"
-                app:boxStrokeWidthFocused="3dp">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/cityET"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/beige"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/evolventa"
+                android:gravity="center_vertical"
+                android:text="Есть дети"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:checked="false"
+                android:drawableTint="@color/green_700"
+                android:buttonTint="@color/green_700" />
 
-            <!-- Divider -->
-            <View
-                android:id="@+id/view"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/beige"
-                android:layout_margin="12dp"
-                app:layout_constraintTop_toBottomOf="@+id/cityET"
-                tools:layout_editor_absoluteX="16dp" />
-
-            <!-- Адрес -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/addressTF"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:expandedHintEnabled="false"
-                android:hint="Адрес проживания"
-                android:inputType="text"
-                android:padding="4dp"
-                app:hintTextAppearance="@style/NavbarTextStyle"
-                android:textColorHint="@color/beige"
-                app:boxStrokeColor="@color/beige"
-                app:boxStrokeWidth="2dp"
-                app:boxStrokeWidthFocused="3dp">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/addressET"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/beige"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_gravity="start"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/evolventa"
+                android:text="Гражданство"
+                android:textColor="#000"
+                android:textSize="18sp" />
 
-            <!-- Место рождения -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/placeOfBirthTF"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:expandedHintEnabled="false"
-                android:hint="Место рождения"
-                android:inputType="textPostalAddress"
-                android:padding="4dp"
-                app:hintTextAppearance="@style/NavbarTextStyle"
-                android:textColorHint="@color/beige"
-                app:boxStrokeColor="@color/beige"
-                app:boxStrokeWidth="2dp"
-                app:boxStrokeWidthFocused="3dp">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/placeOfBirthET"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/beige"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Номер телефона -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/phoneNumberTF"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:expandedHintEnabled="false"
-                android:hint="Номер телефона"
-                android:inputType="phone"
-                android:padding="4dp"
-                app:hintTextAppearance="@style/NavbarTextStyle"
-                android:textColorHint="@color/beige"
-                app:boxStrokeColor="@color/beige"
-                app:boxStrokeWidth="2dp"
-                app:boxStrokeWidthFocused="3dp">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/phoneNumberET"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/beige"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Дата рождения -->
-            <!-- Добавьте элемент для выбора даты рождения здесь -->
-
-            <!-- Водительское удостоверение -->
-            <!-- Добавьте элемент для выбора вариантов здесь -->
-
-            <!-- Пол -->
-            <!-- Добавьте чекбоксы для выбора пола здесь -->
-
-            <!-- Гражданство -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/citizenshipTF"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:expandedHintEnabled="false"
-                android:hint="Гражданство"
-                android:inputType="phone"
-                android:padding="4dp"
-                app:hintTextAppearance="@style/NavbarTextStyle"
-                android:textColorHint="@color/beige"
-                app:boxStrokeColor="@color/beige"
-                app:boxStrokeWidth="2dp"
-                app:boxStrokeWidthFocused="3dp">
-                <com.google.android.material.textfield.TextInputEditText
+            <EditText
                     android:id="@+id/citizenshipET"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/beige"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_text_field"
+                android:hint="РФ"
+                android:fontFamily="@font/evolventa"
+                android:paddingHorizontal="20dp"
+                android:textColor="@color/black"
+                android:textColorHint="#E7E7E9"
+                android:textSize="16sp" />
 
-            <!-- Семейное положение -->
-            <!-- Добавьте элемент для выбора вариантов здесь -->
 
-            <!-- Веб-сайт -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/websiteTF"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/evolventa"
+                android:text="Пол"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:expandedHintEnabled="false"
-                android:hint="Веб-сайт"
-                android:inputType="textUri"
-                android:padding="4dp"
-                app:hintTextAppearance="@style/NavbarTextStyle"
-                android:textColorHint="@color/beige"
-                app:boxStrokeColor="@color/beige"
-                app:boxStrokeWidth="2dp"
-                app:boxStrokeWidthFocused="3dp">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/websiteET"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/beige"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                android:orientation="horizontal">
 
-            <!-- LinkedIn -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/linkedinTF"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:expandedHintEnabled="false"
-                android:hint="LinkedIn"
-                android:inputType="textUri"
-                android:padding="4dp"
-                app:hintTextAppearance="@style/NavbarTextStyle"
-                android:textColorHint="@color/beige"
-                app:boxStrokeColor="@color/beige"
-                app:boxStrokeWidth="2dp"
-                app:boxStrokeWidthFocused="3dp">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/linkedinET"
-                    android:layout_width="match_parent"
+                <CheckBox
+                    android:id="@+id/genderMCB"
+                    android:layout_marginTop="4dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/beige"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="@font/evolventa"
+                    android:gravity="center_vertical"
+                    android:text="Мужской"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:checked="false"
+                    android:drawableTint="@color/green_700"
+                    android:buttonTint="@color/green_700" />
 
-            <!-- Индивидуальное поле -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/customFieldTF"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:expandedHintEnabled="false"
-                android:hint="Индивидуальное поле"
-                android:inputType="text"
-                android:padding="4dp"
-                app:hintTextAppearance="@style/NavbarTextStyle"
-                android:textColorHint="@color/beige"
-                app:boxStrokeColor="@color/beige"
-                app:boxStrokeWidth="2dp"
-                app:boxStrokeWidthFocused="3dp">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/customFieldET"
-                    android:layout_width="match_parent"
+                <CheckBox
+                    android:id="@+id/genderFCB"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:lines="3"
-                    android:textColor="@color/beige"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="@font/evolventa"
+                    android:gravity="center_vertical"
+                    android:text="Женский"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:checked="false"
+                    android:drawableTint="@color/green_700"
+                    android:buttonTint="@color/green_700" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/evolventa"
+                android:text="Образование"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+            <EditText
+                    android:id="@+id/eduGradeET"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_text_field"
+                android:hint="Высшее"
+                android:fontFamily="@font/evolventa"
+                android:paddingHorizontal="20dp"
+                android:textColor="@color/black"
+                android:textColorHint="#E7E7E9"
+                android:textSize="16sp" />
+
+            <CheckBox
+                android:id="@+id/armyCB"
+                android:layout_marginTop="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/evolventa"
+                android:gravity="center_vertical"
+                android:text="Служба в Армии / Кафедра"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:checked="false"
+                android:drawableTint="@color/green_700"
+                android:buttonTint="@color/green_700" />
+
+            <CheckBox
+                android:id="@+id/driveCatCB"
+                android:layout_marginTop="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/evolventa"
+                android:gravity="center_vertical"
+                android:text="Водительское удостоверение"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:checked="false"
+                android:drawableTint="@color/green_700"
+                android:buttonTint="@color/green_700" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/evolventa"
+                android:text="Персональные качества"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/personalQualitiesET"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_text_field"
+                android:hint="Пунктуальность, вежливость"
+                android:fontFamily="@font/evolventa"
+                android:paddingHorizontal="20dp"
+                android:textColor="@color/black"
+                android:textColorHint="#E7E7E9"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/evolventa"
+                android:text="Профессиональные навыки"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+            <EditText
+                    android:id="@+id/profSkillsET"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_text_field"
+                android:hint="Лояльность, знание СНИП"
+                android:fontFamily="@font/evolventa"
+                android:paddingHorizontal="20dp"
+                android:textColor="@color/black"
+                android:textColorHint="#E7E7E9"
+                android:textSize="16sp" />
+
+            <CheckBox
+                android:id="@+id/medBookCB"
+                android:layout_marginTop="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/evolventa"
+                android:gravity="center_vertical"
+                android:text="Медицинская книжка"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:checked="false"
+                android:drawableTint="@color/green_700"
+                android:buttonTint="@color/green_700" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/evolventa"
+                android:text="О себе"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/aboutET"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_text_field"
+                android:hint="О себе"
+                android:fontFamily="@font/evolventa"
+                android:paddingHorizontal="20dp"
+                android:textColor="@color/black"
+                android:textColorHint="#E7E7E9"
+                android:textSize="16sp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/savePersonalBtn"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:layout_marginHorizontal="4dp"
+                android:background="@drawable/bg_item_card"
+                android:fontFamily="@font/evolventa"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="12dp"
+                android:text="Сохранить"
+                android:textColor="@color/beige"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:layout_gravity="center_horizontal"/>
 
         </LinearLayout>
     </ScrollView>

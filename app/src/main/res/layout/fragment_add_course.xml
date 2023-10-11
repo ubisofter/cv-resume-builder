@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:padding="12dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/splash_ic_title"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Добавить курс / тренинг"
+                android:textSize="22sp"
+                android:textColor="#000"
+                android:layout_gravity="center"
+                android:layout_margin="8dp"
+                android:fontFamily="@font/evolventa"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/evolventa"
+            android:text="Название курса / тренинга"
+            android:textColor="#000"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/cNameET"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/bg_text_field"
+            android:hint="Курсы Python"
+            android:fontFamily="@font/evolventa"
+            android:paddingHorizontal="20dp"
+            android:textColor="@color/black"
+            android:textColorHint="#E7E7E9"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/evolventa"
+            android:text="Учебное заведение"
+            android:textColor="#000"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/cSchoolET"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/bg_text_field"
+            android:hint="Институт на базе МГИМО"
+            android:fontFamily="@font/evolventa"
+            android:paddingHorizontal="20dp"
+            android:textColor="@color/black"
+            android:textColorHint="#E7E7E9"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/evolventa"
+            android:text="Период обучения"
+            android:textColor="#000"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:id="@+id/datesLL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/cStartDateET"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_text_field"
+                android:hint="09.2011"
+                android:fontFamily="@font/evolventa"
+                android:paddingHorizontal="20dp"
+                android:layout_marginEnd="4dp"
+                android:textColor="@color/black"
+                android:textColorHint="#E7E7E9"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/cEndDateET"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_text_field"
+                android:hint="12.2011"
+                android:fontFamily="@font/evolventa"
+                android:paddingHorizontal="20dp"
+                android:layout_marginStart="4dp"
+                android:textColor="@color/black"
+                android:textColorHint="#E7E7E9"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/evolventa"
+            android:text="Доп. информация"
+            android:textColor="#000"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/cDescET"
+            android:lines="3"
+            android:lineHeight="24dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/bg_text_field"
+            android:hint="Опишите кратко цели курсов или другую доп. информацию"
+            android:fontFamily="@font/evolventa"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="4dp"
+            android:textColor="@color/black"
+            android:textColorHint="#E7E7E9"
+            android:textSize="16sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/saveCourseBtn"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="48dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_item_card"
+            android:fontFamily="@font/evolventa"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="12dp"
+            android:text="Сохранить"
+            android:textColor="@color/beige"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"/>
+
+    </LinearLayout>
+</ScrollView>

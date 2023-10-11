@@ -5,64 +5,86 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray">
+    android:background="#F9FBF9">
 
-    <!-- GridView для отображения документов или заднего фона с иконкой -->
     <GridView
         android:id="@+id/grid_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:numColumns="2"
-        android:visibility="visible" /> <!-- Измените видимость в соответствии с вашими данными -->
+        android:visibility="visible" />
 
-    <!-- Задний фон с иконкой и текстом "Tap + to create your CV" (начните сделать видимым только при пустом GridView) -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/background_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginHorizontal="24dp"
+        android:background="@drawable/dash_dash_line"
+        android:padding="20dp"
         android:visibility="visible"
-        android:background="@drawable/bg_item_card"
-        android:backgroundTint="@color/light_gray"
-        android:layout_marginHorizontal="16dp"
-        android:padding="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"> <!-- Начните с visibility="gone" -->
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/ic_cv"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@drawable/ic_add_resume"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/beige" />
+            app:tint="@color/black" />
 
         <TextView
+            android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="44dp"
-            android:layout_marginEnd="56dp"
-            android:fontFamily="@font/gotham"
-            android:text="Тут появятся ваши резюме\nНажмите + чтобы создать своё первое резюме"
-            android:textColor="@color/beige"
-            android:textSize="14sp"
+            android:fontFamily="@font/evolventa"
+            android:gravity="center"
+            android:text="Создать резюме"
+            android:textColor="#0D0C21"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="@+id/imageView" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:alpha="0.74"
+            android:fontFamily="@font/evolventa"
+            android:gravity="center"
+            android:text="У вас пока нет резюме. Создайте свое первое резюме вместе с нами"
+            android:textColor="#0D0C21"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/createFirst"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/bg_item_card"
+            android:backgroundTint="@color/green_700"
+            android:text="Создать первое резюме"
+            android:textStyle="bold"
+            android:fontFamily="@font/evolventa"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3"
+            app:rippleColor="@color/green_200" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabAdd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="32dp"
-        android:backgroundTint="@color/beige"
-        android:src="@drawable/ic_add"
-        app:rippleColor="@color/orange"
-        app:layout_constraintBottom_toBottomOf="@+id/grid_view"
-        app:layout_constraintEnd_toEndOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

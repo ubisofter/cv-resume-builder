@@ -3,16 +3,22 @@ package app.cvresume.android.fragments.profile.lang;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.shuhart.stepview.StepView;
@@ -21,23 +27,29 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import app.cvresume.android.R;
+import app.cvresume.android.data.AppDatabase;
+import app.cvresume.android.data.ExperienceEntity;
+import app.cvresume.android.data.LangEntity;
+import app.cvresume.android.fragments.profile.experience.ExperienceAdapter;
 import app.cvresume.android.fragments.profile.lang.LangAdapter;
 import app.cvresume.android.models.Lang;
 
 public class AddLangFragment extends Fragment {
+
     private EditText langET, langDescET;
     private StepView langLvl;
-    private Button saveLangBtn;
-    private List<Lang> langList = new ArrayList<>();
-    private LangAdapter langAdapter;
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
-    String langListJson;
     int sLvl;
+    private AppCompatButton saveLangBtn;
+    private AppDatabase appDatabase;
+    private AppCompatActivity activity;
+    private BottomNavigationView bnv;
+    private LangAdapter langAdapter;
+    private Executor executor = Executors.newSingleThreadExecutor();
 
-    // Метод для установки адаптера
     public void setLangAdapter(LangAdapter adapter) {
         langAdapter = adapter;
     }
@@ -47,16 +59,15 @@ public class AddLangFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_lang, container, false);
 
-        // Находим элементы для ввода
+        appDatabase = AppDatabase.getInstance(requireContext());
+
         langET = view.findViewById(R.id.langET);
         langLvl = view.findViewById(R.id.langLvl);
         langDescET = view.findViewById(R.id.langDescET);
         saveLangBtn = view.findViewById(R.id.saveLangBtn);
 
-        // Устанавливаем количество шагов (уровней навыка)
         langLvl.setStepsNumber(5);
 
-        // Получите массив строк из ресурсов
         String[] langLevels = getResources().getStringArray(R.array.lang_level);
 
         langLvl.getState().steps(Arrays.asList(langLevels))
@@ -92,71 +103,72 @@ public class AddLangFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 addLang();
-                returnToLangFragment();
             }
         });
+
+        activity = (AppCompatActivity) requireActivity();
+        bnv = activity.findViewById(R.id.bottom_navigation);
+        bnv.setVisibility(View.GONE);
 
         return view;
     }
 
     private void addLang() {
-        // Получаем данные с полей ввода
-        String sLang = langET.getText().toString();
-        String sDesc = langDescET.getText().toString();
 
-        // Создаем новый объект Education
-        Lang lang = new Lang(sLang, sLvl, sDesc);
+        String lLangET = langET.getText().toString();
+        int lLangLvl = sLvl;
+        String lLangDescET = langDescET.getText().toString();
 
-        // Загружаем текущий список образований из SharedPreferences
-        loadLangData();
-
-        // Добавляем новое образование в список
-        langList.add(lang);
-
-        // Сохраняем обновленный список образований в SharedPreferences
-        saveLangData();
-
-        // Очищаем поля ввода
-        langET.setText("");
-        langDescET.setText("");
-
-        // Обновляем адаптер (если он был установлен)
-        if (langAdapter != null) {
-            langAdapter.notifyDataSetChanged();
+        if (lLangET.isEmpty()) {
+            Toast.makeText(requireContext(), "Пожалуйста, заполните все поля", Toast.LENGTH_SHORT).show();
+            return;
         }
+
+        final LangEntity langEntity = new LangEntity(
+                lLangET,
+                lLangLvl,
+                lLangDescET
+        );
+
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                appDatabase.langDao().insertLang(langEntity);
+
+                Log.d("AddLangFragment", "Lang added successfully");
+
+                requireActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        langET.setText("");
+                        langDescET.setText("");
+
+                        if (langAdapter != null) {
+                            langAdapter.notifyDataSetChanged();
+                        }
+
+                        getParentFragmentManager().popBackStack();
+                    }
+                });
+            }
+        });
     }
 
-    // Метод для сохранения данных в SharedPreferences
-    private void saveLangData() {
-        sharedPreferences = requireActivity().getSharedPreferences("resume_data", Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
-
-        // Преобразуем список образований в строку JSON
-        Gson gson = new Gson();
-        langListJson = gson.toJson(langList);
-
-        // Сохраняем строку JSON в SharedPreferences
-        editor.putString("lang_list", langListJson);
-        editor.apply();
+    @Override
+    public void onStop() {
+        super.onStop();
+        bnv.setVisibility(View.GONE);
     }
 
-    // Метод для загрузки сохраненных образований из SharedPreferences
-    private void loadLangData() {
-        sharedPreferences = requireActivity().getSharedPreferences("resume_data", Context.MODE_PRIVATE);
-
-        // Получаем строку JSON с образованиями
-        langListJson = sharedPreferences.getString("lang_list", "");
-
-        if (!langListJson.isEmpty()) {
-            // Если строка JSON не пустая, преобразуем её обратно в список Education
-            Gson gson = new Gson();
-            Type langListType = new TypeToken<List<Lang>>() {}.getType();
-            langList = gson.fromJson(langListJson, langListType);
-        }
+    @Override
+    public void onPause() {
+        super.onPause();
+        bnv.setVisibility(View.GONE);
     }
 
-    private void returnToLangFragment() {
-        getParentFragmentManager().popBackStack();
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        bnv.setVisibility(View.GONE);
     }
-
 }

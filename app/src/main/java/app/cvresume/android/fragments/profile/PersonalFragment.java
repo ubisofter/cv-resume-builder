@@ -1,144 +1,171 @@
 package app.cvresume.android.fragments.profile;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.textfield.TextInputEditText;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import app.cvresume.android.R;
-import app.cvresume.android.models.PersonalInfo;
+import app.cvresume.android.data.AppDatabase;
+import app.cvresume.android.data.PersonalInfoDao;
+import app.cvresume.android.data.PersonalInfoEntity;
 
 public class PersonalFragment extends Fragment {
 
-    private TextInputEditText nameET,surnameET,resumeTitleET,emailET,cityET,addressET,placeOfBirthET;
-    private TextInputEditText phoneNumberET,citizenshipET,websiteET,linkedinET,customFieldET;
-
-    private PersonalInfo personalInfo;
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
+    private AppDatabase appDatabase;
+    private EditText cityET, dayET, monthET, yearET, famStatusET, citizenshipET, eduGradeET, personalQualitiesET, profSkillsET, aboutET;
+    private CheckBox childrenCB, armyCB, genderMCB, genderFCB, driveCatCB, medBookCB;
+    private Boolean children, gender, medBook;
+    private PersonalInfoDao personalInfoDao;
+    private Executor executor = Executors.newSingleThreadExecutor();
+    private AppCompatButton savePersonalBtn;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_personal_info, container, false);
 
-        // Находим элементы для ввода
-        nameET = view.findViewById(R.id.nameET);
-        surnameET = view.findViewById(R.id.surnameET);
-        emailET = view.findViewById(R.id.emailET);
-        resumeTitleET = view.findViewById(R.id.resumeTitleET);
+        appDatabase = AppDatabase.getInstance(requireContext());
+
         cityET = view.findViewById(R.id.cityET);
-        addressET = view.findViewById(R.id.addressET);
-        placeOfBirthET = view.findViewById(R.id.placeOfBirthET);
-        phoneNumberET = view.findViewById(R.id.phoneNumberET);
+        dayET = view.findViewById(R.id.dayET);
+        monthET = view.findViewById(R.id.monthET);
+        yearET = view.findViewById(R.id.yearET);
+        famStatusET = view.findViewById(R.id.famStatusET);
+        childrenCB = view.findViewById(R.id.childrenCB);
         citizenshipET = view.findViewById(R.id.citizenshipET);
-        websiteET = view.findViewById(R.id.websiteET);
-        linkedinET = view.findViewById(R.id.linkedinET);
-        customFieldET = view.findViewById(R.id.customFieldET);
+        genderMCB = view.findViewById(R.id.genderMCB);
+        genderFCB = view.findViewById(R.id.genderFCB);
+        eduGradeET = view.findViewById(R.id.eduGradeET);
+        armyCB = view.findViewById(R.id.armyCB);
+        driveCatCB = view.findViewById(R.id.driveCatCB);
+        personalQualitiesET = view.findViewById(R.id.personalQualitiesET);
+        profSkillsET = view.findViewById(R.id.profSkillsET);
+        aboutET = view.findViewById(R.id.aboutET);
+        medBookCB = view.findViewById(R.id.medBookCB);
 
-        sharedPreferences = requireActivity().getSharedPreferences("resume_data", Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
+        savePersonalBtn = view.findViewById(R.id.savePersonalBtn);
 
-        // Всегда инициализируйте personalInfo
-        personalInfo = new PersonalInfo("", "", "", "", "", "", "", "", "", "", "", "");
+        personalInfoDao = AppDatabase.getInstance(requireContext()).personalInfoDao();
+        savePersonalBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveResumeData();
+            }
+        });
 
         loadResumeData();
+        manageGender();
 
         return view;
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        saveResumeData();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        saveResumeData();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        saveResumeData();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        loadResumeData();
-    }
-
     private void saveResumeData() {
-
-        personalInfo.setName(nameET.getText().toString());
-        personalInfo.setSurname(surnameET.getText().toString());
-        personalInfo.setEmail(emailET.getText().toString());
-        personalInfo.setResumeTitle(resumeTitleET.getText().toString());
+        PersonalInfoEntity personalInfo = new PersonalInfoEntity();
         personalInfo.setCity(cityET.getText().toString());
-        personalInfo.setAddress(addressET.getText().toString());
-        personalInfo.setPlaceOfBirth(placeOfBirthET.getText().toString());
-        personalInfo.setPhoneNumber(phoneNumberET.getText().toString());
+        personalInfo.setBirthDate(dayET.getText() + "." + monthET.getText() + "." + yearET.getText());
+        personalInfo.setFamStatus(famStatusET.getText().toString());
+        personalInfo.setChildren(childrenCB.isChecked());
         personalInfo.setCitizenship(citizenshipET.getText().toString());
-        personalInfo.setWebsite(websiteET.getText().toString());
-        personalInfo.setLinkedin(linkedinET.getText().toString());
-        personalInfo.setCustomField(customFieldET.getText().toString());
+        personalInfo.setGender(getGender());
+        personalInfo.setEduGrade(eduGradeET.getText().toString());
+        personalInfo.setArmy(armyCB.isChecked());
+        personalInfo.setDriveCat(driveCatCB.isChecked());
+        personalInfo.setPersonalQualities(personalQualitiesET.getText().toString());
+        personalInfo.setProfSkills(profSkillsET.getText().toString());
+        personalInfo.setMedBook(medBookCB.isChecked());
+        personalInfo.setAbout(aboutET.getText().toString());
 
-        editor.putString("name", personalInfo.getName());
-        editor.putString("surname", personalInfo.getSurname());
-        editor.putString("email", personalInfo.getEmail());
-        editor.putString("resume_title", personalInfo.getResumeTitle());
-        editor.putString("city", personalInfo.getCity());
-        editor.putString("address", personalInfo.getAddress());
-        editor.putString("place_of_birth", personalInfo.getPlaceOfBirth());
-        editor.putString("phone_number", personalInfo.getPhoneNumber());
-        editor.putString("citizenship", personalInfo.getCitizenship());
-        editor.putString("website", personalInfo.getWebsite());
-        editor.putString("linked_in", personalInfo.getLinkedin());
-        editor.putString("custom_field", personalInfo.getCustomField());
+        String birthDate = dayET.getText().toString() + "." + monthET.getText().toString() + "." + yearET.getText().toString();
 
-        editor.apply();
+        if (personalInfo.getCity().isEmpty() || birthDate.isEmpty() || personalInfo.getFamStatus().isEmpty()
+                || personalInfo.getCitizenship().isEmpty() || personalInfo.getEduGrade().isEmpty()
+                || personalInfo.getPersonalQualities().isEmpty() || personalInfo.getProfSkills().isEmpty()
+                || personalInfo.getAbout().isEmpty()) {
+            Toast.makeText(requireContext(), "Пожалуйста, заполните все обязательные поля", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        executor.execute(() -> {
+            personalInfoDao.insertPersonalInfo(personalInfo);
+
+            Log.d("PersonalFragment", "PersonalInfoEntity added successfully");
+            requireActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    getParentFragmentManager().popBackStack();
+                }
+            });
+        });
     }
 
     private void loadResumeData() {
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                PersonalInfoEntity personalInfo = personalInfoDao.getPersonalInfo();
+                if (personalInfo != null) {
+                    requireActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            cityET.setText(personalInfo.getCity());
+                            String birthDate = personalInfo.getBirthDate();
+                            String[] dateParts = birthDate.split("\\.");
+                            if (dateParts.length == 3) {
+                                dayET.setText(dateParts[0]);
+                                monthET.setText(dateParts[1]);
+                                yearET.setText(dateParts[2]);
+                            }
+                            famStatusET.setText(personalInfo.getFamStatus());
+                            childrenCB.setChecked(personalInfo.isChildren());
+                            citizenshipET.setText(personalInfo.getCitizenship());
+                            genderFCB.setChecked(personalInfo.isGender());
+                            genderMCB.setChecked(!personalInfo.isGender());
+                            eduGradeET.setText(personalInfo.getEduGrade());
+                            armyCB.setChecked(personalInfo.isArmy());
+                            driveCatCB.setChecked(personalInfo.isDriveCat());
+                            personalQualitiesET.setText(personalInfo.getPersonalQualities());
+                            profSkillsET.setText(personalInfo.getProfSkills());
+                            medBookCB.setChecked(personalInfo.isMedBook());
+                            aboutET.setText(personalInfo.getAbout());
+                        }
+                    });
+                }
+            }
+        });
+    }
 
-        personalInfo.setName(sharedPreferences.getString("name", ""));
-        personalInfo.setSurname(sharedPreferences.getString("surname", ""));
-        personalInfo.setEmail(sharedPreferences.getString("email", ""));
-        personalInfo.setResumeTitle(sharedPreferences.getString("resume_title", ""));
-        personalInfo.setCity(sharedPreferences.getString("city", ""));
-        personalInfo.setAddress(sharedPreferences.getString("address", ""));
-        personalInfo.setPlaceOfBirth(sharedPreferences.getString("place_of_birth", ""));
-        personalInfo.setPhoneNumber(sharedPreferences.getString("phone_number", ""));
-        personalInfo.setCitizenship(sharedPreferences.getString("citizenship", ""));
-        personalInfo.setWebsite(sharedPreferences.getString("website", ""));
-        personalInfo.setLinkedin(sharedPreferences.getString("linked_in", ""));
-        personalInfo.setCustomField(sharedPreferences.getString("custom_field", ""));
+    private void manageGender(){
+        if (genderMCB.isChecked()){
+            genderFCB.setChecked(false);
+        } else if (genderFCB.isChecked()) {
+            genderMCB.setChecked(false);
+        } else {
+            genderFCB.setChecked(false);
+            genderMCB.setChecked(true);
+        }
+    }
 
-        // Заполнение полей ввода данными из resume
-        nameET.setText(personalInfo.getName());
-        surnameET.setText(personalInfo.getSurname());
-        emailET.setText(personalInfo.getEmail());
-        resumeTitleET.setText(personalInfo.getResumeTitle());
-        cityET.setText(personalInfo.getCity());
-        addressET.setText(personalInfo.getAddress());
-        placeOfBirthET.setText(personalInfo.getPlaceOfBirth());
-        phoneNumberET.setText(personalInfo.getPhoneNumber());
-        citizenshipET.setText(personalInfo.getCitizenship());
-        websiteET.setText(personalInfo.getWebsite());
-        linkedinET.setText(personalInfo.getLinkedin());
-        customFieldET.setText(personalInfo.getCustomField());
-
+    private Boolean getGender(){
+        if (genderMCB.isChecked()){
+            genderFCB.setChecked(false);
+            gender = false;
+        } else if (genderFCB.isChecked()) {
+            genderMCB.setChecked(false);
+            gender = true;
+        }
+        return gender;
     }
 }

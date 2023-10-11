@@ -1,61 +1,24 @@
 package app.cvresume.android.models;
 
 public class PersonalInfo {
+    private String city, birthDate, famStatus, citizenship, eduGrade, personalQualities, profSkills, about;
+    private Boolean children, gender, medBook, army, driveCat;
 
-    private String name;
-    private String surname;
-    private String email;
-    private String resumeTitle;
-    private String city;
-    private String address;
-    private String placeOfBirth;
-    private String phoneNumber;
-    private String citizenship;
-    private String website;
-    private String linkedin;
-    private String customField;
-
-    public PersonalInfo(String name, String surname, String email, String resumeTitle, String city, String address, String placeOfBirth, String phoneNumber, String citizenship, String website, String linkedin, String customField) {
-        this.name = name;
-        this.surname = surname;
-        this.email = email;
-        this.resumeTitle = resumeTitle;
+    public PersonalInfo(String city, String birthDate, String famStatus, Boolean children,
+                        String citizenship, Boolean gender, String eduGrade, Boolean army, Boolean medBook,
+                        Boolean driveCat, String personalQualities, String profSkills, String about) {
         this.city = city;
-        this.address = address;
-        this.placeOfBirth = placeOfBirth;
-        this.phoneNumber = phoneNumber;
+        this.birthDate = birthDate;
+        this.famStatus = famStatus;
+        this.children = children;
         this.citizenship = citizenship;
-        this.website = website;
-        this.linkedin = linkedin;
-        this.customField = customField;
-    }
-
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getResumeTitle() {
-        return resumeTitle;
-    }
-    public void setResumeTitle(String resumeTitle) {
-        this.resumeTitle = resumeTitle;
+        this.gender = gender;
+        this.eduGrade = eduGrade;
+        this.medBook = medBook;
+        this.driveCat = driveCat;
+        this.personalQualities = personalQualities;
+        this.profSkills = profSkills;
+        this.about = about;
     }
 
     public String getCity() {
@@ -65,25 +28,25 @@ public class PersonalInfo {
         this.city = city;
     }
 
-    public String getAddress() {
-        return address;
+    public String getBirthDate() {
+        return birthDate;
     }
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getPlaceOfBirth() {
-        return placeOfBirth;
-    }
-    public void setPlaceOfBirth(String placeOfBirth) {
-        this.placeOfBirth = placeOfBirth;
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getFamStatus() {
+        return famStatus;
     }
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setFamStatus(String famStatus) {
+        this.famStatus = famStatus;
+    }
+
+    public Boolean getChildren() {
+        return children;
+    }
+    public void setChildren(Boolean children) {
+        this.children = children;
     }
 
     public String getCitizenship() {
@@ -93,24 +56,59 @@ public class PersonalInfo {
         this.citizenship = citizenship;
     }
 
-    public String getWebsite() {
-        return website;
+    public Boolean getGender() {
+        return gender;
     }
-    public void setWebsite(String website) {
-        this.website = website;
-    }
-
-    public String getLinkedin() {
-        return linkedin;
-    }
-    public void setLinkedin(String linkedin) {
-        this.linkedin = linkedin;
+    public void setGender(Boolean gender) {
+        this.gender = gender;
     }
 
-    public String getCustomField() {
-        return customField;
+    public String getEduGrade() {
+        return eduGrade;
     }
-    public void setCustomField(String customField) {
-        this.customField = customField;
+    public void setEduGrade(String eduGrade) {
+        this.eduGrade = eduGrade;
+    }
+
+    public Boolean getArmy() {
+        return army;
+    }
+    public void setArmy(Boolean army) {
+        this.army = army;
+    }
+
+    public Boolean getDriveCat() {
+        return driveCat;
+    }
+    public void setDriveCat(Boolean driveCat) {
+        this.driveCat = driveCat;
+    }
+
+    public String getPersonalQualities() {
+        return personalQualities;
+    }
+    public void setPersonalQualities(String personalQualities) {
+        this.personalQualities = personalQualities;
+    }
+
+    public String getProfSkills() {
+        return profSkills;
+    }
+    public void setProfSkills(String profSkills) {
+        this.profSkills = profSkills;
+    }
+
+    public String getAbout() {
+        return about;
+    }
+    public void setAbout(String about) {
+        this.about = about;
+    }
+
+    public Boolean getMedBook() {
+        return medBook;
+    }
+    public void setMedBook(Boolean medBook) {
+        this.medBook = medBook;
     }
 }

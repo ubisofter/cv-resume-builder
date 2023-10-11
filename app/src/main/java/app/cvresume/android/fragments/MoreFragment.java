@@ -11,9 +11,7 @@ import app.cvresume.android.R;
 
 public class MoreFragment extends Fragment {
 
-    public MoreFragment(){
-        // require a empty public constructor
-    }
+    public MoreFragment(){}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

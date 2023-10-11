@@ -14,8 +14,8 @@ import app.cvresume.android.R;
 
 public class ResumeAdapter extends RecyclerView.Adapter<ResumeAdapter.ResumeViewHolder> {
 
-    private String[] sections; // Массив с названиями разделов резюме
-    private int[] sectionIcons; // Массив с иконками
+    private String[] sections;
+    private int[] sectionIcons;
 
     private OnItemClickListener listener;
 
@@ -46,13 +46,11 @@ public class ResumeAdapter extends RecyclerView.Adapter<ResumeAdapter.ResumeView
 
         int iconResId = sectionIcons[position];
         holder.sectionIcon.setImageResource(iconResId);
-
-        // Добавьте обработчик нажатия на элемент, чтобы открыть соответствующий фрагмент
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (listener != null) {
-                    listener.onItemClick(position); // Передаем позицию элемента
+                    listener.onItemClick(position);
                 }
             }
         });

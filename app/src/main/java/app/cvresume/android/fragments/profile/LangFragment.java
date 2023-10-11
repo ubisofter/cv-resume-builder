@@ -11,8 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,28 +27,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.cvresume.android.R;
+import app.cvresume.android.data.AppDatabase;
+import app.cvresume.android.data.LangEntity;
+import app.cvresume.android.fragments.profile.lang.AddLangFragment;
+import app.cvresume.android.fragments.profile.lang.LangAdapter;
 import app.cvresume.android.fragments.profile.lang.AddLangFragment;
 import app.cvresume.android.fragments.profile.lang.LangAdapter;
 import app.cvresume.android.models.Lang;
 
 public class LangFragment extends Fragment {
 
-    private List<Lang> langList = new ArrayList<>(); // Список образований
+    private List<LangEntity> langList = new ArrayList<>();
     private RecyclerView langRV;
     private LangAdapter langAdapter;
-    private AppCompatButton addLangBtn;
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
-    String langListJson;
+    private ConstraintLayout addLangBtn;
     private AppCompatActivity activity;
     private BottomNavigationView bnv;
+    private AppDatabase appDatabase;
+    private static final String TAG = "LangFragment";
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_lang, container, false);
 
-        // Находим элементы для ввода
+        appDatabase = AppDatabase.getInstance(requireContext());
+
         addLangBtn = view.findViewById(R.id.addLangBtn);
 
         langRV = view.findViewById(R.id.langRV);
@@ -63,98 +69,58 @@ public class LangFragment extends Fragment {
 
         activity = (AppCompatActivity) requireActivity();
         bnv = activity.findViewById(R.id.bottom_navigation);
-        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        activity.getSupportActionBar().setDisplayShowHomeEnabled(true);
         bnv.setVisibility(View.GONE);
-
-        activity.getSupportActionBar().setTitle("Языки");
 
         return view;
     }
 
     private void setupRecyclerView() {
         langRV.setLayoutManager(new LinearLayoutManager(getContext()));
-        langAdapter = new LangAdapter(langList);
+        langAdapter = new LangAdapter(langList, appDatabase);
         langRV.setAdapter(langAdapter);
     }
 
     private void openAddLangFragment() {
-        // Создаем и отображаем фрагмент для ввода образования
         AddLangFragment addLangFragment = new AddLangFragment();
-        addLangFragment.setLangAdapter(langAdapter); // Передаем адаптер в AddEducationFragment
+        addLangFragment.setLangAdapter(langAdapter);
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, addLangFragment);
-        transaction.addToBackStack(null); // Добавляем фрагмент в стек, чтобы можно было вернуться к EducationFragment
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 
-    // Метод для удаления образования по индексу
-    private void removeLang(int position) {
-        if (position >= 0 && position < langList.size()) {
-            langList.remove(position);
-            langAdapter.notifyDataSetChanged(); // Обновить адаптер
-            saveLangData(); // Сохраняем образования после удаления
-        }
-    }
-
-    // Метод для сохранения данных в SharedPreferences
-    private void saveLangData() {
-        sharedPreferences = requireActivity().getSharedPreferences("resume_data", Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
-
-        // Преобразуем список образований в строку JSON
-        Gson gson = new Gson();
-        langListJson = gson.toJson(langList);
-
-        // Сохраняем строку JSON в SharedPreferences
-        editor.putString("lang_list", langListJson);
-        editor.apply();
-    }
-
-    // Метод для загрузки сохраненных образований из SharedPreferences
     private void loadLangData() {
-        sharedPreferences = requireActivity().getSharedPreferences("resume_data", Context.MODE_PRIVATE);
-
-        // Получаем строку JSON с образованиями
-        langListJson = sharedPreferences.getString("lang_list", "");
-
-        if (!langListJson.isEmpty()) {
-            // Если строка JSON не пустая, преобразуем её обратно в список Education
-            Gson gson = new Gson();
-            Type langListType = new TypeToken<List<Lang>>() {}.getType();
-            List<Lang> loadedLangList = gson.fromJson(langListJson, langListType);
-
-            // Очищаем существующий список и добавляем загруженные образования
-            langList.clear();
-            langList.addAll(loadedLangList);
-
-            // Обновляем адаптер после загрузки данных
-            langAdapter.notifyDataSetChanged();
-        }
+        appDatabase.langDao().getAllLangs().observe(getViewLifecycleOwner(), new Observer<List<LangEntity>>() {
+            @Override
+            public void onChanged(List<LangEntity> langs) {
+                langList.clear();
+                langList.addAll(langs);
+                langAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        saveLangData();
+        bnv.setVisibility(View.GONE);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        saveLangData();
+        bnv.setVisibility(View.GONE);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        saveLangData();
+        bnv.setVisibility(View.GONE);
     }
 
     @Override
     public void onResume() {
         super.onResume();
         loadLangData();
-        activity.getSupportActionBar().setTitle("Языки");
     }
 }

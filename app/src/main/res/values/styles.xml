@@ -2,15 +2,15 @@
 <resources>
 
     <style name="ToolbarTextStyle">
-        <item name="android:fontFamily">@font/gotham</item>
-        <item name="android:textSize">24sp</item> <!-- Размер текста -->
-        <item name="android:textColor">@color/beige</item> <!-- Цвет текста -->
+        <item name="android:fontFamily">@font/evolventa</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="NavbarTextStyle">
-        <item name="android:fontFamily">@font/gotham</item>
-        <item name="android:textSize">12sp</item> <!-- Размер текста -->
-        <item name="android:textColor">@color/beige</item> <!-- Цвет текста -->
+        <item name="android:fontFamily">@font/evolventa</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
 </resources>

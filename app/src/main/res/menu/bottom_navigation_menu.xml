@@ -2,22 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nav_home"
-        android:icon="@drawable/ic_home"
+        android:icon="@drawable/ic_nav_home"
         android:title="Главная"
-        android:iconTint="@color/beige"/>
+        android:iconTint="@color/black"/>
     <item
         android:id="@+id/nav_templates"
-        android:icon="@drawable/ic_templates"
+        android:icon="@drawable/ic_nav_templates"
         android:title="Шаблоны"
-        android:iconTint="@color/beige"/>
+        android:iconTint="@color/black"/>
     <item
         android:id="@+id/nav_profile"
-        android:icon="@drawable/ic_case"
+        android:icon="@drawable/ic_nav_profile"
         android:title="Профиль"
-        android:iconTint="@color/beige"/>
+        android:iconTint="@color/black"/>
     <item
         android:id="@+id/nav_more"
-        android:icon="@drawable/ic_more"
+        android:icon="@drawable/ic_nav_settings"
         android:title="Настройки"
-        android:iconTint="@color/beige"/>
+        android:iconTint="@color/black"/>
 </menu>

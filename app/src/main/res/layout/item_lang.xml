@@ -4,76 +4,84 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="20dp"
-    android:layout_margin="8dp"
-    android:background="@drawable/bg_item_card"
-    android:backgroundTint="@color/beige">
+    android:padding="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/bg_add_card"
         android:orientation="vertical"
-        android:layout_marginEnd="32dp"
+        android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@drawable/ic_language"
-                android:layout_marginEnd="8dp"
-                app:tint="@color/gray"/>
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
 
             <TextView
-                android:id="@+id/langTV"
+                android:id="@+id/lLangTV"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_gravity="start"
+                android:layout_weight="5"
+                android:fontFamily="@font/evolventa"
+                android:text="Английский"
+                android:textColor="@color/gray"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/lDeleteBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Язык: "
-                android:textStyle="bold"
-                android:fontFamily="@font/gotham"
-                android:textColor="@color/black"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_remove"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="#4F4F4F" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/evolventa"
+                    android:gravity="center_vertical"
+                    android:text="Удалить"
+                    android:textColor="@color/gray"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
         <TextView
-            android:id="@+id/langLvlTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/evolventa"
             android:text="Уровень: "
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/gotham"
-            android:textColor="@color/light_gray"
-            android:textSize="12sp"/>
+            android:textColor="#0D0C21"
+            android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/langDescTV"
+            android:id="@+id/lLvlTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Примечание: "
             android:layout_marginTop="8dp"
-            android:fontFamily="@font/gotham"
-            android:textColor="@color/light_gray"
-            android:textSize="12sp"/>
+            android:fontFamily="@font/evolventa"
+            android:text="Средний"
+            android:textColor="#6D0D0C21"
+            android:textSize="14sp" />
 
     </LinearLayout>
-
-    <!-- Добавьте кнопку для удаления образования -->
-    <ImageView
-        android:id="@+id/removeLangBtn"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
-        android:padding="4dp"
-        android:src="@drawable/ic_remove"
-        app:tint="#4F4F4F"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

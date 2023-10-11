@@ -1,9 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string-array name="skill_level">
-        <item>Низкий</item> <item>Базовый</item> <item>Средний</item> <item>Хороший</item> <item>Высокий</item>
+        <item>Низкий</item>
+        <item>Базовый</item>
+        <item>Средний</item>
+        <item>Хороший</item>
+        <item>Высокий</item>
     </string-array>
+
     <string-array name="lang_level">
-        <item>Новичок</item> <item>Чтение</item> <item>Разговор</item> <item>Высокий</item> <item>Носитель</item>
+        <item>Новичок</item>
+        <item>Чтение</item>
+        <item>Разговор</item>
+        <item>Высокий</item>
+        <item>Носитель</item>
     </string-array>
+
+    <string-array name="resume_sections">
+        <item>Основная информация</item>
+        <item>Персональные данные</item>
+        <item>Опыт работы</item>
+        <item>Образование</item>
+        <item>Курсы и тренинги</item>
+        <item>Языки</item>
+        <item>Навыки</item>
+    </string-array>
+
+    <array name="resume_icons">
+        <item>@drawable/ic_main_info</item>
+        <item>@drawable/ic_personal_info</item>
+        <item>@drawable/ic_exp</item>
+        <item>@drawable/ic_edu</item>
+        <item>@drawable/ic_cou</item>
+        <item>@drawable/ic_lang</item>
+        <item>@drawable/ic_skill</item>
+    </array>
 </resources>

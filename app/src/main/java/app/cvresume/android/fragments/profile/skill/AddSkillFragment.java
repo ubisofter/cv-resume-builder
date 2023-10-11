@@ -3,16 +3,21 @@ package app.cvresume.android.fragments.profile.skill;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.shuhart.stepview.StepView;
@@ -21,21 +26,28 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import app.cvresume.android.R;
+import app.cvresume.android.data.AppDatabase;
+import app.cvresume.android.data.LangEntity;
+import app.cvresume.android.data.SkillEntity;
+import app.cvresume.android.fragments.profile.lang.LangAdapter;
 import app.cvresume.android.fragments.profile.skill.SkillAdapter;
 import app.cvresume.android.models.Skill;
 
 public class AddSkillFragment extends Fragment {
+
     private EditText skillET, skillDescET;
     private StepView skillLvl;
-    private Button saveSkillBtn;
-    private List<Skill> skillList = new ArrayList<>();
-    private SkillAdapter skillAdapter;
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
-    String skillListJson;
     int sLvl;
+    private AppCompatButton saveSkillBtn;
+    private AppDatabase appDatabase;
+    private AppCompatActivity activity;
+    private BottomNavigationView bnv;
+    private SkillAdapter skillAdapter;
+    private Executor executor = Executors.newSingleThreadExecutor();
 
     // Метод для установки адаптера
     public void setSkillAdapter(SkillAdapter adapter) {
@@ -47,16 +59,14 @@ public class AddSkillFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_skill, container, false);
 
-        // Находим элементы для ввода
+        appDatabase = AppDatabase.getInstance(requireContext());
+
         skillET = view.findViewById(R.id.skillET);
         skillLvl = view.findViewById(R.id.skillLvl);
         skillDescET = view.findViewById(R.id.skillDescET);
         saveSkillBtn = view.findViewById(R.id.saveSkillBtn);
 
-        // Устанавливаем количество шагов (уровней навыка)
         skillLvl.setStepsNumber(5);
-
-        // Получите массив строк из ресурсов
         String[] skillLevels = getResources().getStringArray(R.array.skill_level);
 
         skillLvl.getState().steps(Arrays.asList(skillLevels))
@@ -92,71 +102,70 @@ public class AddSkillFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 addSkill();
-                returnToSkillFragment();
             }
         });
 
+        activity = (AppCompatActivity) requireActivity();
+        bnv = activity.findViewById(R.id.bottom_navigation);
+        bnv.setVisibility(View.GONE);
         return view;
     }
 
     private void addSkill() {
-        // Получаем данные с полей ввода
-        String sSkill = skillET.getText().toString();
-        String sDesc = skillDescET.getText().toString();
 
-        // Создаем новый объект Education
-        Skill skill = new Skill(sSkill, sLvl, sDesc);
+        String lSkillET = skillET.getText().toString();
+        int lSkillLvl = sLvl;
+        String lSkillDescET = skillDescET.getText().toString();
 
-        // Загружаем текущий список образований из SharedPreferences
-        loadSkillData();
-
-        // Добавляем новое образование в список
-        skillList.add(skill);
-
-        // Сохраняем обновленный список образований в SharedPreferences
-        saveSkillData();
-
-        // Очищаем поля ввода
-        skillET.setText("");
-        skillDescET.setText("");
-
-        // Обновляем адаптер (если он был установлен)
-        if (skillAdapter != null) {
-            skillAdapter.notifyDataSetChanged();
+        if (lSkillET.isEmpty()) {
+            Toast.makeText(requireContext(), "Пожалуйста, заполните все поля", Toast.LENGTH_SHORT).show();
+            return;
         }
+
+        final SkillEntity skillEntity = new SkillEntity(
+                lSkillET,
+                lSkillLvl,
+                lSkillDescET
+        );
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                appDatabase.skillDao().insertSkill(skillEntity);
+
+                Log.d("AddSkillFragment", "Skill added successfully");
+
+                requireActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        skillET.setText("");
+                        skillDescET.setText("");
+
+                        if (skillAdapter != null) {
+                            skillAdapter.notifyDataSetChanged();
+                        }
+
+                        getParentFragmentManager().popBackStack();
+                    }
+                });
+            }
+        });
     }
 
-    // Метод для сохранения данных в SharedPreferences
-    private void saveSkillData() {
-        sharedPreferences = requireActivity().getSharedPreferences("resume_data", Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
-
-        // Преобразуем список образований в строку JSON
-        Gson gson = new Gson();
-        skillListJson = gson.toJson(skillList);
-
-        // Сохраняем строку JSON в SharedPreferences
-        editor.putString("skill_list", skillListJson);
-        editor.apply();
+    @Override
+    public void onStop() {
+        super.onStop();
+        bnv.setVisibility(View.GONE);
     }
 
-    // Метод для загрузки сохраненных образований из SharedPreferences
-    private void loadSkillData() {
-        sharedPreferences = requireActivity().getSharedPreferences("resume_data", Context.MODE_PRIVATE);
-
-        // Получаем строку JSON с образованиями
-        skillListJson = sharedPreferences.getString("skill_list", "");
-
-        if (!skillListJson.isEmpty()) {
-            // Если строка JSON не пустая, преобразуем её обратно в список Education
-            Gson gson = new Gson();
-            Type skillListType = new TypeToken<List<Skill>>() {}.getType();
-            skillList = gson.fromJson(skillListJson, skillListType);
-        }
+    @Override
+    public void onPause() {
+        super.onPause();
+        bnv.setVisibility(View.GONE);
     }
 
-    private void returnToSkillFragment() {
-        getParentFragmentManager().popBackStack();
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        bnv.setVisibility(View.GONE);
     }
-
 }

@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="4dp">
+                <!-- Иконка приложения и текст -->
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/splash_ic_title"
+                    android:layout_gravity="center" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Основная информация"
+                    android:textSize="22sp"
+                    android:textColor="#000"
+                    android:layout_gravity="center"
+                    android:layout_margin="8dp"
+                    android:fontFamily="@font/evolventa"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/evolventa"
+                android:text="Фамилия"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/surnameET"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_text_field"
+                android:hint="Иванов"
+                android:fontFamily="@font/evolventa"
+                android:paddingHorizontal="20dp"
+                android:textColor="@color/black"
+                android:textColorHint="#E7E7E9"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/evolventa"
+                android:text="Имя"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+
+            <EditText
+                android:id="@+id/nameET"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_text_field"
+                android:fontFamily="@font/evolventa"
+                android:hint="Иван"
+                android:paddingHorizontal="20dp"
+                android:textColor="@color/black"
+                android:textColorHint="#E7E7E9"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/evolventa"
+                android:text="Отчество"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/secondNameET"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_text_field"
+                android:fontFamily="@font/evolventa"
+                android:hint="Иванович"
+                android:paddingHorizontal="20dp"
+                android:textColor="@color/black"
+                android:textColorHint="#E7E7E9"
+                android:textSize="16sp" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/photoHolder"
+                android:layout_width="wrap_content"
+                android:layout_height="84dp"
+                android:layout_marginTop="16dp">
+
+                <ImageView
+                    android:id="@+id/photoIV"
+                    android:layout_width="84dp"
+                    android:layout_height="84dp"
+                    android:src="@drawable/photo_placeholder"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="18dp"
+                    android:paddingEnd="18dp"
+                    android:text="Загрузить фото"
+                    android:textSize="16sp"
+                    android:textColor="#BD5AB556"
+                    android:fontFamily="@font/evolventa"
+                    android:gravity="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/photoIV"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/evolventa"
+                android:text="Электронная почта"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/emailET"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_text_field"
+                android:fontFamily="@font/evolventa"
+                android:hint="email@example.com"
+                android:inputType="textWebEmailAddress"
+                android:paddingHorizontal="20dp"
+                android:textColor="@color/black"
+                android:textColorHint="#E7E7E9"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/evolventa"
+                android:text="Телефон"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/phoneNumET"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/bg_text_field"
+                android:fontFamily="@font/evolventa"
+                android:hint="+73336664444"
+                android:inputType="phone"
+                android:paddingHorizontal="20dp"
+                android:textColor="@color/black"
+                android:textColorHint="#E7E7E9"
+                android:textSize="16sp" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E7E7E9"
+                android:layout_margin="12dp"
+                app:layout_constraintTop_toBottomOf="@+id/phoneNumTF"
+                tools:layout_editor_absoluteX="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/evolventa"
+                android:text="Должность"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/resumeTitleET"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_text_field"
+                android:fontFamily="@font/evolventa"
+                android:hint="Инженер-технолог"
+                android:inputType="text"
+                android:paddingHorizontal="20dp"
+                android:textColor="@color/black"
+                android:textColorHint="#E7E7E9"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/evolventa"
+                android:text="Занятость"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/busyET"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_text_field"
+                android:fontFamily="@font/evolventa"
+                android:hint="Полная"
+                android:inputType="text"
+                android:paddingHorizontal="20dp"
+                android:textColor="@color/black"
+                android:textColorHint="#E7E7E9"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/evolventa"
+                android:text="Желаемая зарплата"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/salaryET"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_text_field"
+                android:fontFamily="@font/evolventa"
+                android:hint="60.000 руб."
+                android:inputType="text"
+                android:paddingHorizontal="20dp"
+                android:textColor="@color/black"
+                android:textColorHint="#E7E7E9"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/evolventa"
+                android:text="График работы"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/scheduleET"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_text_field"
+                    android:fontFamily="@font/evolventa"
+                    android:hint="Полный день"
+                    android:inputType="text"
+                    android:paddingHorizontal="20dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="#E7E7E9"
+                    android:textSize="16sp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/saveMainBtn"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:layout_marginHorizontal="4dp"
+                android:background="@drawable/bg_item_card"
+                android:fontFamily="@font/evolventa"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="12dp"
+                android:text="Сохранить"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:layout_gravity="center_horizontal"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
