@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -31,6 +32,8 @@ public class PersonalFragment extends Fragment {
     private PersonalInfoDao personalInfoDao;
     private Executor executor = Executors.newSingleThreadExecutor();
     private AppCompatButton savePersonalBtn;
+
+    private double progress, numberOfFieldsFilled;
 
     @Nullable
     @Override
@@ -59,113 +62,130 @@ public class PersonalFragment extends Fragment {
         savePersonalBtn = view.findViewById(R.id.savePersonalBtn);
 
         personalInfoDao = AppDatabase.getInstance(requireContext()).personalInfoDao();
-        savePersonalBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                saveResumeData();
-            }
-        });
 
         loadResumeData();
         manageGender();
+
+        savePersonalBtn.setOnClickListener(view1 -> saveResumeData());
 
         return view;
     }
 
     private void saveResumeData() {
-        PersonalInfoEntity personalInfo = new PersonalInfoEntity();
-        personalInfo.setCity(cityET.getText().toString());
-        personalInfo.setBirthDate(dayET.getText() + "." + monthET.getText() + "." + yearET.getText());
-        personalInfo.setFamStatus(famStatusET.getText().toString());
-        personalInfo.setChildren(childrenCB.isChecked());
-        personalInfo.setCitizenship(citizenshipET.getText().toString());
-        personalInfo.setGender(getGender());
-        personalInfo.setEduGrade(eduGradeET.getText().toString());
-        personalInfo.setArmy(armyCB.isChecked());
-        personalInfo.setDriveCat(driveCatCB.isChecked());
-        personalInfo.setPersonalQualities(personalQualitiesET.getText().toString());
-        personalInfo.setProfSkills(profSkillsET.getText().toString());
-        personalInfo.setMedBook(medBookCB.isChecked());
-        personalInfo.setAbout(aboutET.getText().toString());
+        final String city = cityET.getText().toString();
+        final String birthDate = dayET.getText() + "." + monthET.getText() + "." + yearET.getText();
+        final String famStatus = famStatusET.getText().toString();
+        final boolean children = childrenCB.isChecked();
+        final String citizenship = citizenshipET.getText().toString();
+        final boolean gender = getGender();
+        final String eduGrade = eduGradeET.getText().toString();
+        final boolean army = armyCB.isChecked();
+        final boolean driveCat = driveCatCB.isChecked();
+        final String personalQualities = personalQualitiesET.getText().toString();
+        final String profSkills = profSkillsET.getText().toString();
+        final boolean medBook = medBookCB.isChecked();
+        final String about = aboutET.getText().toString();
 
-        String birthDate = dayET.getText().toString() + "." + monthET.getText().toString() + "." + yearET.getText().toString();
-
-        if (personalInfo.getCity().isEmpty() || birthDate.isEmpty() || personalInfo.getFamStatus().isEmpty()
-                || personalInfo.getCitizenship().isEmpty() || personalInfo.getEduGrade().isEmpty()
-                || personalInfo.getPersonalQualities().isEmpty() || personalInfo.getProfSkills().isEmpty()
-                || personalInfo.getAbout().isEmpty()) {
-            Toast.makeText(requireContext(), "Пожалуйста, заполните все обязательные поля", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        numberOfFieldsFilled = calculateNumberOfFieldsFilled();
 
         executor.execute(() -> {
+            PersonalInfoEntity personalInfo = personalInfoDao.getPersonalInfo();
+
+            if (personalInfo == null) {
+                personalInfo = new PersonalInfoEntity();
+            }
+
+            progress = numberOfFieldsFilled / 10 * 100;
+
+            personalInfo.setProgress((int) Math.round(progress));
+            personalInfo.setCity(city);
+            personalInfo.setBirthDate(birthDate);
+            personalInfo.setFamStatus(famStatus);
+            personalInfo.setChildren(children);
+            personalInfo.setCitizenship(citizenship);
+            personalInfo.setGender(gender);
+            personalInfo.setEduGrade(eduGrade);
+            personalInfo.setArmy(army);
+            personalInfo.setDriveCat(driveCat);
+            personalInfo.setPersonalQualities(personalQualities);
+            personalInfo.setProfSkills(profSkills);
+            personalInfo.setMedBook(medBook);
+            personalInfo.setAbout(about);
+
+//            if (city.isEmpty() || birthDate.isEmpty() || famStatus.isEmpty()
+//                    || citizenship.isEmpty() || eduGrade.isEmpty()
+//                    || personalQualities.isEmpty() || profSkills.isEmpty()
+//                    || about.isEmpty()) {
+//                requireActivity().runOnUiThread(() -> {
+//                    Toast.makeText(requireContext(), "Пожалуйста, заполните все обязательные поля", Toast.LENGTH_SHORT).show();
+//                });
+//                return;
+//            }
+
             personalInfoDao.insertPersonalInfo(personalInfo);
 
-            Log.d("PersonalFragment", "PersonalInfoEntity added successfully");
-            requireActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    getParentFragmentManager().popBackStack();
-                }
+            requireActivity().runOnUiThread(() -> {
+                getParentFragmentManager().popBackStack();
             });
         });
     }
 
     private void loadResumeData() {
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                PersonalInfoEntity personalInfo = personalInfoDao.getPersonalInfo();
-                if (personalInfo != null) {
-                    requireActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            cityET.setText(personalInfo.getCity());
-                            String birthDate = personalInfo.getBirthDate();
-                            String[] dateParts = birthDate.split("\\.");
-                            if (dateParts.length == 3) {
-                                dayET.setText(dateParts[0]);
-                                monthET.setText(dateParts[1]);
-                                yearET.setText(dateParts[2]);
-                            }
-                            famStatusET.setText(personalInfo.getFamStatus());
-                            childrenCB.setChecked(personalInfo.isChildren());
-                            citizenshipET.setText(personalInfo.getCitizenship());
-                            genderFCB.setChecked(personalInfo.isGender());
-                            genderMCB.setChecked(!personalInfo.isGender());
-                            eduGradeET.setText(personalInfo.getEduGrade());
-                            armyCB.setChecked(personalInfo.isArmy());
-                            driveCatCB.setChecked(personalInfo.isDriveCat());
-                            personalQualitiesET.setText(personalInfo.getPersonalQualities());
-                            profSkillsET.setText(personalInfo.getProfSkills());
-                            medBookCB.setChecked(personalInfo.isMedBook());
-                            aboutET.setText(personalInfo.getAbout());
-                        }
-                    });
-                }
+        executor.execute(() -> {
+            PersonalInfoEntity personalInfo = personalInfoDao.getPersonalInfo();
+            if (personalInfo != null) {
+                requireActivity().runOnUiThread(() -> {
+                    cityET.setText(personalInfo.getCity());
+                    String birthDate = personalInfo.getBirthDate();
+                    String[] dateParts = birthDate.split("\\.");
+                    if (dateParts.length == 3) {
+                        dayET.setText(dateParts[0]);
+                        monthET.setText(dateParts[1]);
+                        yearET.setText(dateParts[2]);
+                    }
+                    famStatusET.setText(personalInfo.getFamStatus());
+                    childrenCB.setChecked(personalInfo.isChildren());
+                    citizenshipET.setText(personalInfo.getCitizenship());
+                    genderFCB.setChecked(personalInfo.isGender());
+                    genderMCB.setChecked(!personalInfo.isGender());
+                    eduGradeET.setText(personalInfo.getEduGrade());
+                    armyCB.setChecked(personalInfo.isArmy());
+                    driveCatCB.setChecked(personalInfo.isDriveCat());
+                    personalQualitiesET.setText(personalInfo.getPersonalQualities());
+                    profSkillsET.setText(personalInfo.getProfSkills());
+                    medBookCB.setChecked(personalInfo.isMedBook());
+                    aboutET.setText(personalInfo.getAbout());
+                });
             }
         });
     }
 
     private void manageGender(){
-        if (genderMCB.isChecked()){
-            genderFCB.setChecked(false);
-        } else if (genderFCB.isChecked()) {
-            genderMCB.setChecked(false);
-        } else {
-            genderFCB.setChecked(false);
-            genderMCB.setChecked(true);
-        }
+        genderMCB.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                genderFCB.setChecked(false);
+            }
+        });
+
+        genderFCB.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                genderMCB.setChecked(false);
+            }
+        });
     }
 
     private Boolean getGender(){
-        if (genderMCB.isChecked()){
-            genderFCB.setChecked(false);
-            gender = false;
-        } else if (genderFCB.isChecked()) {
-            genderMCB.setChecked(false);
-            gender = true;
+        return !genderMCB.isChecked();
+    }
+
+    private long calculateNumberOfFieldsFilled() {
+        int filledFields = 0;
+        EditText[] editTexts = {cityET, dayET, monthET, yearET, famStatusET, citizenshipET, eduGradeET, personalQualitiesET, profSkillsET, aboutET};
+        for (EditText editText : editTexts) {
+            if (!editText.getText().toString().isEmpty()) {
+                filledFields++;
+            }
         }
-        return gender;
+        return filledFields;
     }
 }

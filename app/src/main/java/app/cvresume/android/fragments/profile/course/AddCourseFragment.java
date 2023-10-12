@@ -52,12 +52,7 @@ public class AddCourseFragment extends Fragment {
         cDescET = view.findViewById(R.id.cDescET);
         saveCourseBtn = view.findViewById(R.id.saveCourseBtn);
 
-        saveCourseBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addCourse();
-            }
-        });
+        saveCourseBtn.setOnClickListener(v -> addCourse());
 
         activity = (AppCompatActivity) requireActivity();
         bnv = activity.findViewById(R.id.bottom_navigation);
@@ -84,30 +79,24 @@ public class AddCourseFragment extends Fragment {
                 cStartDate + " - " + cEndDate,
                 cDesc
         );
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                appDatabase.courseDao().insertCourse(courseEntity);
+        executor.execute(() -> {
+            appDatabase.courseDao().insertCourse(courseEntity);
 
-                Log.d("AddCourseFragment", "Course added successfully");
+            Log.d("AddCourseFragment", "Course added successfully");
 
-                requireActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        cNameET.setText("");
-                        cSchoolET.setText("");
-                        cStartDateET.setText("");
-                        cEndDateET.setText("");
-                        cDescET.setText("");
+            requireActivity().runOnUiThread(() -> {
+                cNameET.setText("");
+                cSchoolET.setText("");
+                cStartDateET.setText("");
+                cEndDateET.setText("");
+                cDescET.setText("");
 
-                        if (courseAdapter != null) {
-                            courseAdapter.notifyDataSetChanged();
-                        }
+                if (courseAdapter != null) {
+                    courseAdapter.notifyDataSetChanged();
+                }
 
-                        getParentFragmentManager().popBackStack();
-                    }
-                });
-            }
+                getParentFragmentManager().popBackStack();
+            });
         });
     }
 

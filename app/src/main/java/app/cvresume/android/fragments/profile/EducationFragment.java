@@ -49,12 +49,7 @@ public class EducationFragment extends Fragment {
         educationRV = view.findViewById(R.id.educationRV);
         setupRecyclerView();
 
-        addEducationBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openAddEducationFragment();
-            }
-        });
+        addEducationBtn.setOnClickListener(v -> openAddEducationFragment());
 
         loadEducationData();
 
@@ -81,13 +76,10 @@ public class EducationFragment extends Fragment {
     }
 
     private void loadEducationData() {
-        appDatabase.educationDao().getAllEducations().observe(getViewLifecycleOwner(), new Observer<List<EducationEntity>>() {
-            @Override
-            public void onChanged(List<EducationEntity> educations) {
-                educationList.clear();
-                educationList.addAll(educations);
-                educationAdapter.notifyDataSetChanged();
-            }
+        appDatabase.educationDao().getAllEducations().observe(getViewLifecycleOwner(), educations -> {
+            educationList.clear();
+            educationList.addAll(educations);
+            educationAdapter.notifyDataSetChanged();
         });
     }
 

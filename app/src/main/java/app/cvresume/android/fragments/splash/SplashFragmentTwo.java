@@ -23,16 +23,13 @@ public class SplashFragmentTwo extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_splash_two, container, false);
         AppCompatButton createResumeButton = view.findViewById(R.id.splash_two_btn);
-        createResumeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /** вернуть в релизе **/
-                //((SplashActivity) requireActivity()).startMainActivityFromSplashFragmentTwo();
-                Intent intent = new Intent(requireActivity(), MainActivity.class);
-                startActivity(intent);
-                requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                requireActivity().finish();
-            }
+        createResumeButton.setOnClickListener(v -> {
+            /** вернуть в релизе **/
+            //((SplashActivity) requireActivity()).startMainActivityFromSplashFragmentTwo();
+            Intent intent = new Intent(requireActivity(), MainActivity.class);
+            startActivity(intent);
+            requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            requireActivity().finish();
         });
         return view;
     }

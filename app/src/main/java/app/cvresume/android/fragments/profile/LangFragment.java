@@ -44,7 +44,6 @@ public class LangFragment extends Fragment {
     private AppCompatActivity activity;
     private BottomNavigationView bnv;
     private AppDatabase appDatabase;
-    private static final String TAG = "LangFragment";
 
     @Nullable
     @Override
@@ -58,12 +57,7 @@ public class LangFragment extends Fragment {
         langRV = view.findViewById(R.id.langRV);
         setupRecyclerView();
 
-        addLangBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openAddLangFragment();
-            }
-        });
+        addLangBtn.setOnClickListener(v -> openAddLangFragment());
 
         loadLangData();
 
@@ -90,13 +84,10 @@ public class LangFragment extends Fragment {
     }
 
     private void loadLangData() {
-        appDatabase.langDao().getAllLangs().observe(getViewLifecycleOwner(), new Observer<List<LangEntity>>() {
-            @Override
-            public void onChanged(List<LangEntity> langs) {
-                langList.clear();
-                langList.addAll(langs);
-                langAdapter.notifyDataSetChanged();
-            }
+        appDatabase.langDao().getAllLangs().observe(getViewLifecycleOwner(), langs -> {
+            langList.clear();
+            langList.addAll(langs);
+            langAdapter.notifyDataSetChanged();
         });
     }
 

@@ -48,19 +48,19 @@ public class LangAdapter extends RecyclerView.Adapter<LangAdapter.ViewHolder> {
 
         switch (langEntity.langLvl){
             case 0:
-                holder.lLvlTV.setText("Уровень: Новичок");
+                holder.lLvlTV.setText("Новичок");
                 break;
             case 1:
-                holder.lLvlTV.setText("Уровень: Чтение");
+                holder.lLvlTV.setText("Чтение");
                 break;
             case 2:
-                holder.lLvlTV.setText("Уровень: Разговор");
+                holder.lLvlTV.setText("Разговор");
                 break;
             case 3:
-                holder.lLvlTV.setText("Уровень: Высокий");
+                holder.lLvlTV.setText("Высокий");
                 break;
             case 4:
-                holder.lLvlTV.setText("Уровень: Носитель");
+                holder.lLvlTV.setText("Носитель");
                 break;
         }
 
@@ -86,12 +86,7 @@ public class LangAdapter extends RecyclerView.Adapter<LangAdapter.ViewHolder> {
         if (position >= 0 && position < langList.size()) {
             final LangEntity langEntity = langList.remove(position);
             notifyItemRemoved(position);
-            Executors.newSingleThreadExecutor().execute(new Runnable() {
-                @Override
-                public void run() {
-                    appDatabase.langDao().deleteLang(langEntity);
-                }
-            });
+            Executors.newSingleThreadExecutor().execute(() -> appDatabase.langDao().deleteLang(langEntity));
         }
     }
 

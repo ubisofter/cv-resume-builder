@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 public class ExperienceEntity {
     @PrimaryKey(autoGenerate = true)
     public long id;
-
+    public int progress;
     public String experiencePosition;
     public String experienceEmployer;
     public String experienceWorkcity;
@@ -20,5 +20,12 @@ public class ExperienceEntity {
         this.experienceWorkcity = experienceWorkcity;
         this.experienceDuration = experienceDuration;
         this.experienceWorkdesc = experienceWorkdesc;
+    }
+
+    public int getProgress() {
+        return progress;
+    }
+    public void setProgress(int progress) {
+        this.progress = progress;
     }
 }

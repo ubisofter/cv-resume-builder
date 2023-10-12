@@ -99,12 +99,7 @@ public class AddLangFragment extends Fragment {
             }
         });
 
-        saveLangBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addLang();
-            }
-        });
+        saveLangBtn.setOnClickListener(v -> addLang());
 
         activity = (AppCompatActivity) requireActivity();
         bnv = activity.findViewById(R.id.bottom_navigation);
@@ -130,27 +125,21 @@ public class AddLangFragment extends Fragment {
                 lLangDescET
         );
 
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                appDatabase.langDao().insertLang(langEntity);
+        executor.execute(() -> {
+            appDatabase.langDao().insertLang(langEntity);
 
-                Log.d("AddLangFragment", "Lang added successfully");
+            Log.d("AddLangFragment", "Lang added successfully");
 
-                requireActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        langET.setText("");
-                        langDescET.setText("");
+            requireActivity().runOnUiThread(() -> {
+                langET.setText("");
+                langDescET.setText("");
 
-                        if (langAdapter != null) {
-                            langAdapter.notifyDataSetChanged();
-                        }
+                if (langAdapter != null) {
+                    langAdapter.notifyDataSetChanged();
+                }
 
-                        getParentFragmentManager().popBackStack();
-                    }
-                });
-            }
+                getParentFragmentManager().popBackStack();
+            });
         });
     }
 

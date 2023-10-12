@@ -82,12 +82,7 @@ public class SkillAdapter extends RecyclerView.Adapter<SkillAdapter.ViewHolder> 
         if (position >= 0 && position < skillList.size()) {
             final SkillEntity skillEntity = skillList.remove(position);
             notifyItemRemoved(position);
-            Executors.newSingleThreadExecutor().execute(new Runnable() {
-                @Override
-                public void run() {
-                    appDatabase.skillDao().deleteSkill(skillEntity);
-                }
-            });
+            Executors.newSingleThreadExecutor().execute(() -> appDatabase.skillDao().deleteSkill(skillEntity));
         }
     }
 

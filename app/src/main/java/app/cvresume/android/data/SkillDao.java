@@ -22,4 +22,9 @@ public interface SkillDao {
 
     @Query("SELECT * FROM skills")
     LiveData<List<SkillEntity>> getAllSkills();
+    @Query("SELECT * FROM skills")
+    SkillEntity getSkill();
+
+    @Query("SELECT COUNT(*) FROM skills")
+    int countSkills();
 }

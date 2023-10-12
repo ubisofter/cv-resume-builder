@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -49,12 +50,7 @@ public class ExperienceFragment extends Fragment {
         experienceRV = view.findViewById(R.id.experienceRV);
         setupRecyclerView();
 
-        addExperienceBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openAddExperienceFragment();
-            }
-        });
+        addExperienceBtn.setOnClickListener(v -> openAddExperienceFragment());
 
         loadExperienceData();
 
@@ -81,13 +77,10 @@ public class ExperienceFragment extends Fragment {
     }
 
     private void loadExperienceData() {
-        appDatabase.experienceDao().getAllExperiences().observe(getViewLifecycleOwner(), new Observer<List<ExperienceEntity>>() {
-            @Override
-            public void onChanged(List<ExperienceEntity> experiences) {
-                experienceList.clear();
-                experienceList.addAll(experiences);
-                experienceAdapter.notifyDataSetChanged();
-            }
+        appDatabase.experienceDao().getAllExperiences().observe(getViewLifecycleOwner(), experiences -> {
+            experienceList.clear();
+            experienceList.addAll(experiences);
+            experienceAdapter.notifyDataSetChanged();
         });
     }
 

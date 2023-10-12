@@ -53,12 +53,7 @@ public class AddEducationFragment extends Fragment {
         eDescET = view.findViewById(R.id.eDescET);
         saveEducationBtn = view.findViewById(R.id.saveEducationBtn);
 
-        saveEducationBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addEducation();
-            }
-        });
+        saveEducationBtn.setOnClickListener(v -> addEducation());
 
         activity = (AppCompatActivity) requireActivity();
         bnv = activity.findViewById(R.id.bottom_navigation);
@@ -88,31 +83,28 @@ public class AddEducationFragment extends Fragment {
                 eDesc
         );
 
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                appDatabase.educationDao().insertEducation(educationEntity);
+        executor.execute(() -> {
+            appDatabase.educationDao().insertEducation(educationEntity);
 
-                Log.d("AddEducationFragment", "Education added successfully");
+            Log.d("AddEducationFragment", "Education added successfully");
 
-                requireActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        eDegreeET.setText("");
-                        eUniversityET.setText("");
-                        eCityET.setText("");
-                        eDateStartET.setText("");
-                        eDateEndET.setText("");
-                        eDescET.setText("");
+            requireActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    eDegreeET.setText("");
+                    eUniversityET.setText("");
+                    eCityET.setText("");
+                    eDateStartET.setText("");
+                    eDateEndET.setText("");
+                    eDescET.setText("");
 
-                        if (educationAdapter != null) {
-                            educationAdapter.notifyDataSetChanged();
-                        }
-
-                        getParentFragmentManager().popBackStack();
+                    if (educationAdapter != null) {
+                        educationAdapter.notifyDataSetChanged();
                     }
-                });
-            }
+
+                    getParentFragmentManager().popBackStack();
+                }
+            });
         });
     }
 

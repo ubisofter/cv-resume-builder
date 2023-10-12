@@ -28,22 +28,19 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         createResume = view.findViewById(R.id.createFirst);
-        createResume.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ProfileFragment profileFragment = new ProfileFragment();
-                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, profileFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
+        createResume.setOnClickListener(v -> {
+            ProfileFragment profileFragment = new ProfileFragment();
+            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, profileFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
 
-                Toast.makeText(getContext(), "Заполните как можно больше данных для вашего резюме", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "Заполните как можно больше данных для вашего резюме", Toast.LENGTH_LONG).show();
 
-                BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_navigation);
+            BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_navigation);
 
-                MenuItem menuItem = bottomNavigationView.getMenu().findItem(R.id.nav_profile);
-                menuItem.setChecked(true);
-            }
+            MenuItem menuItem = bottomNavigationView.getMenu().findItem(R.id.nav_profile);
+            menuItem.setChecked(true);
         });
 
         return view;

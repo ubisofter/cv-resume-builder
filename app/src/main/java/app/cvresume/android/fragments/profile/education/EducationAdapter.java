@@ -65,12 +65,7 @@ public class EducationAdapter extends RecyclerView.Adapter<EducationAdapter.View
         if (position >= 0 && position < educationList.size()) {
             final EducationEntity educationEntity = educationList.remove(position);
             notifyItemRemoved(position);
-            Executors.newSingleThreadExecutor().execute(new Runnable() {
-                @Override
-                public void run() {
-                    appDatabase.educationDao().deleteEducation(educationEntity);
-                }
-            });
+            Executors.newSingleThreadExecutor().execute(() -> appDatabase.educationDao().deleteEducation(educationEntity));
         }
     }
 

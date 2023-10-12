@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 public class LangEntity {
     @PrimaryKey(autoGenerate = true)
     public long id;
-
+    public int progress;
     public String langLang;
     public int langLvl;
     public String langDesc;
@@ -16,5 +16,13 @@ public class LangEntity {
         this.langLang = langLang;
         this.langLvl = langLvl;
         this.langDesc = langDesc;
+    }
+
+    public int getProgress() {
+        return progress;
+    }
+
+    public void setProgress(int progress) {
+        this.progress = progress;
     }
 }

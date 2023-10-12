@@ -64,12 +64,7 @@ public class ExperienceAdapter extends RecyclerView.Adapter<ExperienceAdapter.Vi
             final ExperienceEntity experienceEntity = experienceList.remove(position);
             notifyItemRemoved(position);
 
-            Executors.newSingleThreadExecutor().execute(new Runnable() {
-                @Override
-                public void run() {
-                    appDatabase.experienceDao().deleteExperience(experienceEntity);
-                }
-            });
+            Executors.newSingleThreadExecutor().execute(() -> appDatabase.experienceDao().deleteExperience(experienceEntity));
         }
     }
 

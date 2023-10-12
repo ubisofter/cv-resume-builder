@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -41,14 +40,28 @@
             app:layout_constraintStart_toEndOf="@+id/sectionIcon"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:progress="10"
-            android:progressTint="@color/green_700"
-            android:secondaryProgressTint="#C9DFC9"
-            android:indeterminateDrawable="@drawable/progress_custom"
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progressFilled"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            app:indicatorColor="@color/green_700"
+            app:indicatorSize="24dp"
+            app:trackThickness="5dp"
+            app:trackCornerRadius="4dp"
+            app:trackColor="#C8E5C9"
+            android:progress="20"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/progressImg"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="4dp"
+            android:src="@drawable/ic_done"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

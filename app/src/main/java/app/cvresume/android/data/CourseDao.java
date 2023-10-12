@@ -22,4 +22,9 @@ public interface CourseDao {
 
     @Query("SELECT * FROM courses")
     LiveData<List<CourseEntity>> getAllCourses();
+    @Query("SELECT * FROM courses")
+    CourseEntity getCourse();
+
+    @Query("SELECT COUNT(*) FROM courses")
+    int countCourses();
 }

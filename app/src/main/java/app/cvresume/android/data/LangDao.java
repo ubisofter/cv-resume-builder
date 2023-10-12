@@ -22,4 +22,9 @@ public interface LangDao {
 
     @Query("SELECT * FROM langs")
     LiveData<List<LangEntity>> getAllLangs();
+    @Query("SELECT * FROM langs")
+    LangEntity getLang();
+
+    @Query("SELECT COUNT(*) FROM langs")
+    int countLangs();
 }

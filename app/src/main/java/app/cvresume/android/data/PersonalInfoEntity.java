@@ -8,6 +8,7 @@ public class PersonalInfoEntity {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
+    private int progress;
     private String city;
     private String birthDate;
     private String famStatus;
@@ -28,6 +29,13 @@ public class PersonalInfoEntity {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getProgress() {
+        return progress;
+    }
+    public void setProgress(int progress) {
+        this.progress = progress;
     }
 
     public String getCity() {

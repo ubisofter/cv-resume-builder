@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey;
 public class CourseEntity {
     @PrimaryKey(autoGenerate = true)
     public long id;
+    public int progress;
 
     public String courseName;
     public String courseSchool;
@@ -18,5 +19,12 @@ public class CourseEntity {
         this.courseSchool = courseSchool;
         this.coursePeriod = coursePeriod;
         this.courseDescription = courseDescription;
+    }
+
+    public int getProgress() {
+        return progress;
+    }
+    public void setProgress(int progress) {
+        this.progress = progress;
     }
 }

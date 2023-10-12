@@ -44,12 +44,7 @@ public class SkillFragment extends Fragment {
         skillRV = view.findViewById(R.id.skillRV);
         setupRecyclerView();
 
-        addSkillBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openAddSkillFragment();
-            }
-        });
+        addSkillBtn.setOnClickListener(v -> openAddSkillFragment());
 
         loadSkillData();
 
@@ -76,13 +71,10 @@ public class SkillFragment extends Fragment {
     }
 
     private void loadSkillData() {
-        appDatabase.skillDao().getAllSkills().observe(getViewLifecycleOwner(), new Observer<List<SkillEntity>>() {
-            @Override
-            public void onChanged(List<SkillEntity> skills) {
-                skillList.clear();
-                skillList.addAll(skills);
-                skillAdapter.notifyDataSetChanged();
-            }
+        appDatabase.skillDao().getAllSkills().observe(getViewLifecycleOwner(), skills -> {
+            skillList.clear();
+            skillList.addAll(skills);
+            skillAdapter.notifyDataSetChanged();
         });
     }
 

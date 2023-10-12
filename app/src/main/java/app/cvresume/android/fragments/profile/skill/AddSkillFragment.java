@@ -49,7 +49,6 @@ public class AddSkillFragment extends Fragment {
     private SkillAdapter skillAdapter;
     private Executor executor = Executors.newSingleThreadExecutor();
 
-    // Метод для установки адаптера
     public void setSkillAdapter(SkillAdapter adapter) {
         skillAdapter = adapter;
     }
@@ -98,12 +97,7 @@ public class AddSkillFragment extends Fragment {
             }
         });
 
-        saveSkillBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addSkill();
-            }
-        });
+        saveSkillBtn.setOnClickListener(v -> addSkill());
 
         activity = (AppCompatActivity) requireActivity();
         bnv = activity.findViewById(R.id.bottom_navigation);
@@ -127,27 +121,21 @@ public class AddSkillFragment extends Fragment {
                 lSkillLvl,
                 lSkillDescET
         );
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                appDatabase.skillDao().insertSkill(skillEntity);
+        executor.execute(() -> {
+            appDatabase.skillDao().insertSkill(skillEntity);
 
-                Log.d("AddSkillFragment", "Skill added successfully");
+            Log.d("AddSkillFragment", "Skill added successfully");
 
-                requireActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        skillET.setText("");
-                        skillDescET.setText("");
+            requireActivity().runOnUiThread(() -> {
+                skillET.setText("");
+                skillDescET.setText("");
 
-                        if (skillAdapter != null) {
-                            skillAdapter.notifyDataSetChanged();
-                        }
+                if (skillAdapter != null) {
+                    skillAdapter.notifyDataSetChanged();
+                }
 
-                        getParentFragmentManager().popBackStack();
-                    }
-                });
-            }
+                getParentFragmentManager().popBackStack();
+            });
         });
     }
 

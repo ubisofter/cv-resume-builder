@@ -66,12 +66,7 @@ public class AddExperienceFragment extends Fragment {
         workDescET = view.findViewById(R.id.workDescET);
         saveExperienceBtn = view.findViewById(R.id.saveExperienceBtn);
 
-        saveExperienceBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addExperience();
-            }
-        });
+        saveExperienceBtn.setOnClickListener(v -> addExperience());
 
         activity = (AppCompatActivity) requireActivity();
         bnv = activity.findViewById(R.id.bottom_navigation);
@@ -101,31 +96,25 @@ public class AddExperienceFragment extends Fragment {
                 wDesc
         );
 
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                appDatabase.experienceDao().insertExperience(experienceEntity);
+        executor.execute(() -> {
+            appDatabase.experienceDao().insertExperience(experienceEntity);
 
-                Log.d("AddExperienceFragment", "Experience added successfully");
+            Log.d("AddExperienceFragment", "Experience added successfully");
 
-                requireActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        positionET.setText("");
-                        employerET.setText("");
-                        experienceCityET.setText("");
-                        workDateBeginET.setText("");
-                        workDateEndET.setText("");
-                        workDescET.setText("");
+            requireActivity().runOnUiThread(() -> {
+                positionET.setText("");
+                employerET.setText("");
+                experienceCityET.setText("");
+                workDateBeginET.setText("");
+                workDateEndET.setText("");
+                workDescET.setText("");
 
-                        if (experienceAdapter != null) {
-                            experienceAdapter.notifyDataSetChanged();
-                        }
+                if (experienceAdapter != null) {
+                    experienceAdapter.notifyDataSetChanged();
+                }
 
-                        getParentFragmentManager().popBackStack();
-                    }
-                });
-            }
+                getParentFragmentManager().popBackStack();
+            });
         });
     }
 

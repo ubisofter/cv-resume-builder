@@ -22,4 +22,9 @@ public interface ExperienceDao {
 
     @Query("SELECT * FROM experiences")
     LiveData<List<ExperienceEntity>> getAllExperiences();
+    @Query("SELECT * FROM experiences")
+    ExperienceEntity getExperience();
+
+    @Query("SELECT COUNT(*) FROM experiences")
+    int countExperiences();
 }

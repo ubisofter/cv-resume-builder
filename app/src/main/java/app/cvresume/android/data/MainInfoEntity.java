@@ -8,6 +8,7 @@ public class MainInfoEntity {
     @PrimaryKey(autoGenerate = true)
     public long id;
 
+    public int progress;
     public String name;
     public String surname;
     public String secondName;
@@ -21,15 +22,20 @@ public class MainInfoEntity {
     public long getId() {
         return id;
     }
-
     public void setId(long id) {
         this.id = id;
+    }
+
+    public int getProgress() {
+        return progress;
+    }
+    public void setProgress(int progress) {
+        this.progress = progress;
     }
 
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -37,7 +43,6 @@ public class MainInfoEntity {
     public String getSurname() {
         return surname;
     }
-
     public void setSurname(String surname) {
         this.surname = surname;
     }
@@ -45,7 +50,6 @@ public class MainInfoEntity {
     public String getSecondName() {
         return secondName;
     }
-
     public void setSecondName(String secondName) {
         this.secondName = secondName;
     }
@@ -53,7 +57,6 @@ public class MainInfoEntity {
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
@@ -61,7 +64,6 @@ public class MainInfoEntity {
     public String getPhoneNum() {
         return phoneNum;
     }
-
     public void setPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum;
     }
@@ -69,7 +71,6 @@ public class MainInfoEntity {
     public String getResumeTitle() {
         return resumeTitle;
     }
-
     public void setResumeTitle(String resumeTitle) {
         this.resumeTitle = resumeTitle;
     }
@@ -77,7 +78,6 @@ public class MainInfoEntity {
     public String getBusy() {
         return busy;
     }
-
     public void setBusy(String busy) {
         this.busy = busy;
     }
@@ -85,7 +85,6 @@ public class MainInfoEntity {
     public String getSalary() {
         return salary;
     }
-
     public void setSalary(String salary) {
         this.salary = salary;
     }
@@ -93,7 +92,6 @@ public class MainInfoEntity {
     public String getSchedule() {
         return schedule;
     }
-
     public void setSchedule(String schedule) {
         this.schedule = schedule;
     }

@@ -22,15 +22,12 @@ public class SplashFragmentOne extends Fragment {
         View view = inflater.inflate(R.layout.fragment_splash_one, container, false);
 
         AppCompatButton nextButton = view.findViewById(R.id.splash_one_btn);
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
-                transaction.replace(R.id.fragment_container, new SplashFragmentTwo());
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
+        nextButton.setOnClickListener(v -> {
+            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+            transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
+            transaction.replace(R.id.fragment_container, new SplashFragmentTwo());
+            transaction.addToBackStack(null);
+            transaction.commit();
         });
         return view;
     }

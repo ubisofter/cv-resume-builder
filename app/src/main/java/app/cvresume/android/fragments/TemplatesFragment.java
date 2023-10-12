@@ -80,24 +80,18 @@ public class TemplatesFragment extends Fragment {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
 
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
+        executor.execute(() -> {
 
-                getData();
-                filePath = new File(requireContext().getExternalFilesDir(Context.DOWNLOAD_SERVICE), "Test.docx");
+            getData();
+            filePath = new File(requireContext().getExternalFilesDir(Context.DOWNLOAD_SERVICE), "Test.docx");
 
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            changeValues();
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                });
-            }
+            handler.post(() -> {
+                try {
+                    changeValues();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
         });
 
         return view;

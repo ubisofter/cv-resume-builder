@@ -22,4 +22,9 @@ public interface EducationDao {
 
     @Query("SELECT * FROM educations")
     LiveData<List<EducationEntity>> getAllEducations();
+    @Query("SELECT * FROM educations")
+    EducationEntity getEducation();
+
+    @Query("SELECT COUNT(*) FROM educations")
+    int countEducations();
 }

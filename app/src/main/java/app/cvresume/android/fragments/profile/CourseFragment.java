@@ -47,18 +47,12 @@ public class CourseFragment extends Fragment {
 
         appDatabase = AppDatabase.getInstance(requireContext());
 
-        // Находим элементы для ввода
         addCourseBtn = view.findViewById(R.id.addCourseBtn);
 
         courseRV = view.findViewById(R.id.courseRV);
         setupRecyclerView();
 
-        addCourseBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openAddCourseFragment();
-            }
-        });
+        addCourseBtn.setOnClickListener(v -> openAddCourseFragment());
 
         loadCourseData();
 
@@ -85,13 +79,10 @@ public class CourseFragment extends Fragment {
     }
 
     private void loadCourseData() {
-        appDatabase.courseDao().getAllCourses().observe(getViewLifecycleOwner(), new Observer<List<CourseEntity>>() {
-            @Override
-            public void onChanged(List<CourseEntity> courses) {
-                courseList.clear();
-                courseList.addAll(courses);
-                courseAdapter.notifyDataSetChanged();
-            }
+        appDatabase.courseDao().getAllCourses().observe(getViewLifecycleOwner(), courses -> {
+            courseList.clear();
+            courseList.addAll(courses);
+            courseAdapter.notifyDataSetChanged();
         });
     }
 

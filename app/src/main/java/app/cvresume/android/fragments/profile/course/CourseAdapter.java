@@ -62,12 +62,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         if (position >= 0 && position < courseList.size()) {
             final CourseEntity courseEntity = courseList.remove(position);
             notifyItemRemoved(position);
-            Executors.newSingleThreadExecutor().execute(new Runnable() {
-                @Override
-                public void run() {
-                    appDatabase.courseDao().deleteCourse(courseEntity);
-                }
-            });
+            Executors.newSingleThreadExecutor().execute(() -> appDatabase.courseDao().deleteCourse(courseEntity));
         }
     }
 
