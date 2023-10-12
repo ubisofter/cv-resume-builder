@@ -10,11 +10,8 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import app.cvresume.android.R;
-import app.cvresume.android.data.ExperienceEntity;
-import app.cvresume.android.data.MainInfoEntity;
 
 public class PreviewFragment extends Fragment {
 
@@ -48,8 +45,6 @@ public class PreviewFragment extends Fragment {
             childTV.setText("Name: " + hasChildren);
             TextView experienceTV = view.findViewById(R.id.pExperienceTV);
             experienceTV.setText("Name: " + experienceDataList);
-
-            // Добавьте код для отображения других данных
         }
 
         return view;

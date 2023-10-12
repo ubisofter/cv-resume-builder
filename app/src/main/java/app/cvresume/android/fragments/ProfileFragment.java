@@ -1,6 +1,5 @@
 package app.cvresume.android.fragments;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -51,7 +50,6 @@ public class ProfileFragment extends Fragment {
 
     AppCompatActivity activity;
     BottomNavigationView bnv;
-    SharedPreferences sharedPreferences;
     AppCompatButton selectTemplateButton;
     MainInfoDao mInfoDao; PersonalInfoDao pInfoDao; ExperienceDao exDao; EducationDao edDao; CourseDao cDao; SkillDao sDao; LangDao lDao;
     MainInfoEntity mInfo; PersonalInfoEntity pInfo;

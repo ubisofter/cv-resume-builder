@@ -15,18 +15,9 @@ public class TemplatesAdapter extends RecyclerView.Adapter<TemplatesAdapter.Temp
 
     private Context context;
     private OnTemplateClickListener listener;
-    //private OnTemplateClickListener listener;
 
     int[] imageResources = { R.drawable.tmp_preview_1, R.drawable.tmp_preview_2, R.drawable.tmp_preview_3,
             R.drawable.tmp_preview_4, R.drawable.tmp_preview_5, R.drawable.tmp_preview_6 };
-
-//    public void setOnItemClickListener(OnTemplateClickListener position) {
-//
-//    }
-
-    public interface OnItemClickListener {
-        void onItemClick(int position);
-    }
 
     public TemplatesAdapter(Context context, OnTemplateClickListener listener) {
         this.context = context;
@@ -36,10 +27,6 @@ public class TemplatesAdapter extends RecyclerView.Adapter<TemplatesAdapter.Temp
     public interface OnTemplateClickListener {
         void onTemplateClick(int position);
     }
-
-//    public interface OnItemClickListener {
-//        void onTemplateClick(int position);
-//    }
 
     @NonNull
     @Override
@@ -64,7 +51,6 @@ public class TemplatesAdapter extends RecyclerView.Adapter<TemplatesAdapter.Temp
 
     @Override
     public int getItemCount() {
-        //{ return sections.length; }
         { return imageResources.length; }
     }
 
@@ -78,8 +64,6 @@ public class TemplatesAdapter extends RecyclerView.Adapter<TemplatesAdapter.Temp
 
             itemView.setOnClickListener(v -> {
                 int position = getBindingAdapterPosition();
-                // Определите, какой класс нужно открыть в зависимости от позиции
-                // и передайте эту информацию в активность или фрагмент через слушателя
                 if (listener != null) {
                     listener.onTemplateClick(position);
                 }

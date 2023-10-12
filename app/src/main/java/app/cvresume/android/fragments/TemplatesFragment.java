@@ -1,86 +1,32 @@
 package app.cvresume.android.fragments;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.Handler;
-import android.os.Looper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import org.apache.poi.xwpf.usermodel.IBodyElement;
-import org.apache.poi.xwpf.usermodel.XWPFAbstractNum;
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
-import org.apache.poi.xwpf.usermodel.XWPFFootnote;
-import org.apache.poi.xwpf.usermodel.XWPFParagraph;
-import org.apache.poi.xwpf.usermodel.XWPFRun;
-import org.apache.poi.xwpf.usermodel.XWPFTable;
-import org.apache.poi.xwpf.usermodel.XWPFTableCell;
-import org.apache.poi.xwpf.usermodel.XWPFTableRow;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import app.cvresume.android.R;
-import app.cvresume.android.adapters.ProfileAdapter;
 import app.cvresume.android.adapters.TemplatesAdapter;
 import app.cvresume.android.data.AppDatabase;
-import app.cvresume.android.data.CourseDao;
 import app.cvresume.android.data.CourseEntity;
-import app.cvresume.android.data.EducationDao;
 import app.cvresume.android.data.EducationEntity;
-import app.cvresume.android.data.ExperienceDao;
 import app.cvresume.android.data.ExperienceEntity;
-import app.cvresume.android.data.LangDao;
 import app.cvresume.android.data.LangEntity;
-import app.cvresume.android.data.MainInfoDao;
 import app.cvresume.android.data.MainInfoEntity;
-import app.cvresume.android.data.PersonalInfoDao;
 import app.cvresume.android.data.PersonalInfoEntity;
-import app.cvresume.android.data.SkillDao;
 import app.cvresume.android.data.SkillEntity;
-import app.cvresume.android.fragments.profile.CourseFragment;
-import app.cvresume.android.fragments.profile.EducationFragment;
-import app.cvresume.android.fragments.profile.ExperienceFragment;
-import app.cvresume.android.fragments.profile.LangFragment;
-import app.cvresume.android.fragments.profile.MainFragment;
-import app.cvresume.android.fragments.profile.PersonalFragment;
-import app.cvresume.android.fragments.profile.SkillFragment;
-import app.cvresume.android.models.Course;
-import app.cvresume.android.models.Education;
-import app.cvresume.android.models.Experience;
-import app.cvresume.android.models.Lang;
-import app.cvresume.android.models.MainInfo;
-import app.cvresume.android.models.PersonalInfo;
-import app.cvresume.android.models.Resume;
-import app.cvresume.android.models.Skill;
 
 public class TemplatesFragment extends Fragment {
 
