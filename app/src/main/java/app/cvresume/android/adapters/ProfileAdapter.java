@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,7 +15,7 @@ import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 import app.cvresume.android.R;
 
-public class ResumeAdapter extends RecyclerView.Adapter<ResumeAdapter.ResumeViewHolder> {
+public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ResumeViewHolder> {
 
     private String[] sections;
     private int[] sectionIcons;
@@ -28,7 +27,7 @@ public class ResumeAdapter extends RecyclerView.Adapter<ResumeAdapter.ResumeView
         void onItemClick(int position);
     }
 
-    public ResumeAdapter(String[] sections, int[] sectionIcons, int[] progress) {
+    public ProfileAdapter(String[] sections, int[] sectionIcons, int[] progress) {
         this.sections = sections;
         this.sectionIcons = sectionIcons;
         this.sectionProgress = progress;
@@ -41,7 +40,7 @@ public class ResumeAdapter extends RecyclerView.Adapter<ResumeAdapter.ResumeView
     @NonNull
     @Override
     public ResumeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_resume, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_profile, parent, false);
         return new ResumeViewHolder(view);
     }
 

@@ -1,6 +1,5 @@
 package app.cvresume.android.fragments;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,42 +7,33 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.List;
 import java.util.concurrent.Executors;
 
 import app.cvresume.android.R;
-import app.cvresume.android.adapters.ResumeAdapter;
+import app.cvresume.android.adapters.ProfileAdapter;
 import app.cvresume.android.data.AppDatabase;
 import app.cvresume.android.data.CourseDao;
-import app.cvresume.android.data.CourseEntity;
 import app.cvresume.android.data.EducationDao;
-import app.cvresume.android.data.EducationEntity;
 import app.cvresume.android.data.ExperienceDao;
-import app.cvresume.android.data.ExperienceEntity;
 import app.cvresume.android.data.LangDao;
-import app.cvresume.android.data.LangEntity;
 import app.cvresume.android.data.MainInfoDao;
 import app.cvresume.android.data.MainInfoEntity;
 import app.cvresume.android.data.PersonalInfoDao;
 import app.cvresume.android.data.PersonalInfoEntity;
 import app.cvresume.android.data.SkillDao;
-import app.cvresume.android.data.SkillEntity;
 import app.cvresume.android.fragments.profile.CourseFragment;
 import app.cvresume.android.fragments.profile.EducationFragment;
 import app.cvresume.android.fragments.profile.ExperienceFragment;
@@ -51,7 +41,6 @@ import app.cvresume.android.fragments.profile.LangFragment;
 import app.cvresume.android.fragments.profile.MainFragment;
 import app.cvresume.android.fragments.profile.PersonalFragment;
 import app.cvresume.android.fragments.profile.SkillFragment;
-import app.cvresume.android.models.Experience;
 
 public class ProfileFragment extends Fragment {
 
@@ -126,7 +115,7 @@ public class ProfileFragment extends Fragment {
                 resumeSections = getResources().getStringArray(R.array.resume_sections);
                 sectionsProgress = new int[]{progressMI, progressPI, (int) Math.round(progressEx), (int) Math.round(progressEd), (int) Math.round(progressC), (int) Math.round(progressL), (int) Math.round(progressS)};
 
-                ResumeAdapter adapter = new ResumeAdapter(resumeSections, resumeIcons, sectionsProgress);
+                ProfileAdapter adapter = new ProfileAdapter(resumeSections, resumeIcons, sectionsProgress);
                 sectionsRecycler.setAdapter(adapter);
 
                 adapter.setOnItemClickListener(position -> {
