@@ -1,6 +1,7 @@
 package app.cvresume.android.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -40,10 +42,20 @@ public class TemplatesFragment extends Fragment {
     LiveData<List<LangEntity>> allLangsLiveData;
     LiveData<List<SkillEntity>> allSkillsLiveData;
 
+    Bundle args;
+    ArrayList<String> skillDataList, langDataList, courseDataList, educationDataList, experienceDataList;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_templates, container, false);
+
+        args = new Bundle();
+        skillDataList = new ArrayList<>();
+        langDataList = new ArrayList<>();
+        courseDataList = new ArrayList<>();
+        educationDataList = new ArrayList<>();
+        experienceDataList = new ArrayList<>();
 
         Executor executor = Executors.newSingleThreadExecutor();
 
@@ -57,17 +69,15 @@ public class TemplatesFragment extends Fragment {
             allCoursesLiveData = appDatabase.courseDao().getAllCourses();
             allLangsLiveData = appDatabase.langDao().getAllLangs();
             allSkillsLiveData = appDatabase.skillDao().getAllSkills();
+
+            requireActivity().runOnUiThread(this::observeLists);
+
         });
 
         templatesRecyclerView = view.findViewById(R.id.templatesRV);
         templatesRecyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2));
 
-        TemplatesAdapter adapter = new TemplatesAdapter(requireContext(), new TemplatesAdapter.OnTemplateClickListener() {
-            @Override
-            public void onTemplateClick(int position) {
-                openPreviewFragment(position);
-            }
-        });
+        TemplatesAdapter adapter = new TemplatesAdapter(requireContext(), this::openPreviewFragment);
 
         templatesRecyclerView.setAdapter(adapter);
 
@@ -75,7 +85,6 @@ public class TemplatesFragment extends Fragment {
     }
 
     private void openPreviewFragment(int position) {
-        Bundle args = new Bundle();
         args.putInt("templatePosition", position);
 
         args.putString("surname", mainInfo.getSurname());
@@ -102,9 +111,27 @@ public class TemplatesFragment extends Fragment {
         args.putBoolean("medBook", personalInfo.isMedBook());
         args.putString("about", personalInfo.getAbout());
 
+        args.putStringArrayList("experienceDataList", experienceDataList);
+        args.putStringArrayList("educationDataList", educationDataList);
+        args.putStringArrayList("courseDataList", courseDataList);
+        args.putStringArrayList("langDataList", langDataList);
+        args.putStringArrayList("skillDataList", skillDataList);
 
+        PreviewFragment previewFragment = PreviewFragment.newInstance(args);
+
+        requireActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, previewFragment)
+                .addToBackStack(null)
+                .commit();
+
+        Log.d("NAME DATA", Objects.requireNonNull(args.getString("name")));
+        Log.d("CHILDREN DATA", Objects.requireNonNull(String.valueOf(args.getBoolean("children"))));
+        Log.d("EXPERIENCE DATA", Objects.requireNonNull(args.getStringArrayList("experienceDataList")).toString());
+    }
+
+    public void observeLists(){
         allExperiencesLiveData.observe(getViewLifecycleOwner(), experienceEntities -> {
-            ArrayList<String> experienceDataList = new ArrayList<>();
+            experienceDataList = new ArrayList<>();
             for (ExperienceEntity entity : experienceEntities) {
                 String experienceData = entity.id + "\n"
                         + entity.experienceEmployer + "\n"
@@ -114,12 +141,10 @@ public class TemplatesFragment extends Fragment {
                         + entity.experienceWorkdesc + "\n";
                 experienceDataList.add(experienceData);
             }
-            args.putStringArrayList("experienceDataList", experienceDataList);
         });
 
-
         allEducationsLiveData.observe(getViewLifecycleOwner(), educationEntities -> {
-            ArrayList<String> educationDataList = new ArrayList<>();
+            educationDataList = new ArrayList<>();
             for (EducationEntity entity : educationEntities) {
                 String educationData = entity.id + "\n"
                         + entity.educationDegree + "\n"
@@ -129,12 +154,11 @@ public class TemplatesFragment extends Fragment {
                         + entity.educationDesc + "\n";
                 educationDataList.add(educationData);
             }
-            args.putStringArrayList("educationDataList", educationDataList);
         });
 
 
         allCoursesLiveData.observe(getViewLifecycleOwner(), courseEntities -> {
-            ArrayList<String> courseDataList = new ArrayList<>();
+            courseDataList = new ArrayList<>();
             for (CourseEntity entity : courseEntities) {
                 String courseData = entity.id + "\n"
                         + entity.courseName + "\n"
@@ -143,45 +167,47 @@ public class TemplatesFragment extends Fragment {
                         + entity.courseDescription + "\n";
                 courseDataList.add(courseData);
             }
-            args.putStringArrayList("courseDataList", courseDataList);
         });
 
 
         allLangsLiveData.observe(getViewLifecycleOwner(), langEntities -> {
-            ArrayList<String> langDataList = new ArrayList<>();
+            langDataList = new ArrayList<>();
+            String tempLang = "";
             for (LangEntity entity : langEntities) {
+                switch(entity.langLvl){
+                    case 0: tempLang = "Новичок"; break;
+                    case 1: tempLang = "Чтение"; break;
+                    case 2: tempLang = "Разговор"; break;
+                    case 3: tempLang = "Высокий"; break;
+                    case 4: tempLang = "Носитель"; break;
+                }
                 String langData = entity.id + "\n"
                         + entity.langLang + "\n"
-                        + entity.langLvl + "\n"
+                        + tempLang + "\n"
                         + entity.langDesc + "\n";
                 langDataList.add(langData);
             }
-            args.putStringArrayList("langDataList", langDataList);
         });
 
 
         allSkillsLiveData.observe(getViewLifecycleOwner(), skillEntities -> {
-            ArrayList<String> skillDataList = new ArrayList<>();
+            skillDataList = new ArrayList<>();
+            String tempSkill = "";
             for (SkillEntity entity : skillEntities) {
+                switch(entity.skillLvl){
+                    case 0: tempSkill = "Низкий"; break;
+                    case 1: tempSkill = "Базовый"; break;
+                    case 2: tempSkill = "Средний"; break;
+                    case 3: tempSkill = "Высокий"; break;
+                    case 4: tempSkill = "Специалист"; break;
+                }
                 String skillData = entity.id + "\n"
                         + entity.skillSkill + "\n"
-                        + entity.skillLvl + "\n"
+                        + tempSkill + "\n"
                         + entity.skillDesc;
                 skillDataList.add(skillData);
             }
-            args.putStringArrayList("skillDataList", skillDataList);
         });
-
-        PreviewFragment previewFragment = PreviewFragment.newInstance(args);
-
-        requireActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, previewFragment)
-                .addToBackStack(null)
-                .commit();
-
-//        Log.d("NAME DATA", Objects.requireNonNull(args.getString("name")));
-//        Log.d("CHILDREN DATA", Objects.requireNonNull(String.valueOf(args.getBoolean("children"))));
-//        Log.d("EXPERIENCE DATA", Objects.requireNonNull(args.getStringArrayList("experienceDataList").toString()));
     }
 
 }
