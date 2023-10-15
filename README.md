@@ -1,20 +1,20 @@
 # 📋 CV Resume Builder 
 
-##     ## ##    ## ########  ######## ########  
-##     ## ###   ## ##     ## ##       ##     ## 
-##     ## ####  ## ##     ## ##       ##     ## 
-##     ## ## ## ## ##     ## ######   ########  
-##     ## ##  #### ##     ## ##       ##   ##   
-##     ## ##   ### ##     ## ##       ##    ##  
-#######  ##    ## ########  ######## ##     ##
+xx     xx xx    xx xxxxxxxx  xxxxxxxx xxxxxxxx  
+xx     xx xxx   xx xx     xx xx       xx     xx 
+xx     xx xxxx  xx xx     xx xx       xx     xx 
+xx     xx xx xx xx xx     xx xxxxxx   xxxxxxxx  
+xx     xx xx  xxxx xx     xx xx       xx   xx   
+xx     xx xx   xxx xx     xx xx       xx    xx  
+xxxxxxx  xx    xx xxxxxxxx  xxxxxxxx xx     xx
 
-########  ######## ##     ## ######## ##        #######  ########  ##     ## ######## ##    ## ########
-##     ## ##       ##     ## ##       ##       ##     ## ##     ## ###   ### ##       ###   ##    ##    
-##     ## ##       ##     ## ##       ##       ##     ## ##     ## #### #### ##       ####  ##    ##    
-##     ## ######   ##     ## ######   ##       ##     ## ########  ## ### ## ######   ## ## ##    ##    
-##     ## ##        ##   ##  ##       ##       ##     ## ##        ##     ## ##       ##  ####    ##    
-##     ## ##         ## ##   ##       ##       ##     ## ##        ##     ## ##       ##   ###    ##    
-########  ########    ###    ######## ########  #######  ##        ##     ## ######## ##    ##    ##
+xxxxxxxx  xxxxxxxx xx     xx xxxxxxxx xx        xxxxxxx  xxxxxxxx  xx     xx xxxxxxxx xx    xx xxxxxxxx
+xx     xx xx       xx     xx xx       xx       xx     xx xx     xx xxx   xxx xx       xxx   xx    xx    
+xx     xx xx       xx     xx xx       xx       xx     xx xx     xx xxxx xxxx xx       xxxx  xx    xx    
+xx     xx xxxxxx   xx     xx xxxxxx   xx       xx     xx xxxxxxxx  xx xxx xx xxxxxx   xx xx xx    xx    
+xx     xx xx        xx   xx  xx       xx       xx     xx xx        xx     xx xx       xx  xxxx    xx    
+xx     xx xx         xx xx   xx       xx       xx     xx xx        xx     xx xx       xx   xxx    xx    
+xxxxxxxx  xxxxxxxx    xxx    xxxxxxxx xxxxxxxx  xxxxxxx  xx        xx     xx xxxxxxxx xx    xx    xx
 
 
 
