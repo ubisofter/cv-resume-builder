@@ -49,8 +49,6 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ResumeVi
         String sectionTitle = sections[position];
         int progress = sectionProgress[position];
 
-        Log.d("BindViewHolder progress", sectionTitle+" PROGRESS "+progress);
-
         holder.sectionTitle.setText(sectionTitle);
 
         if(progress>99){

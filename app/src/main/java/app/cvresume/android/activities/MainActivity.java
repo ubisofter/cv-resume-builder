@@ -64,32 +64,28 @@ public class MainActivity extends AppCompatActivity {
     private void loadBottomNavigation() {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.nav_home);
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @SuppressLint("NonConstantResourceId")
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        bottomNavigationView.setOnItemSelectedListener(item -> {
 
-                homeFragment = new HomeFragment();
-                templatesFragment = new TemplatesFragment();
-                profileFragment = new ProfileFragment();
-                moreFragment = new MoreFragment();
+            homeFragment = new HomeFragment();
+            templatesFragment = new TemplatesFragment();
+            profileFragment = new ProfileFragment();
+            moreFragment = new MoreFragment();
 
-                switch (item.getItemId()) {
-                    case R.id.nav_home:
-                        loadFragment(homeFragment);
-                        return true;
-                    case R.id.nav_templates:
-                        loadFragment(templatesFragment);
-                        return true;
-                    case R.id.nav_profile:
-                        loadFragment(profileFragment);
-                        return true;
-                    case R.id.nav_more:
-                        loadFragment(moreFragment);
-                        return true;
-                }
-                return false;
+            switch (item.getItemId()) {
+                case R.id.nav_home:
+                    loadFragment(homeFragment);
+                    return true;
+                case R.id.nav_templates:
+                    loadFragment(templatesFragment);
+                    return true;
+                case R.id.nav_profile:
+                    loadFragment(profileFragment);
+                    return true;
+                case R.id.nav_more:
+                    loadFragment(moreFragment);
+                    return true;
             }
+            return false;
         });
     }
 }
